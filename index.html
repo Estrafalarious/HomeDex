@@ -170,8 +170,8 @@ select.sel{padding:10px 10px;border:1px solid var(--line);border-radius:10px;bac
 .star svg{width:14px;height:14px;fill:none;stroke:var(--muted);stroke-width:1.4;stroke-linejoin:round}
 .star[aria-pressed="true"]{background:var(--gold);border-color:var(--gold)}
 .star[aria-pressed="true"] svg{fill:#fff;stroke:#fff}
-.card .types,.card .marks{padding-right:28px}
-.marks{display:flex;gap:6px;font:500 11px var(--f-mono);color:var(--muted);margin-top:auto}
+.card .types{padding-right:28px}
+.marks{display:flex;flex-wrap:wrap;column-gap:6px;row-gap:2px;white-space:nowrap;font:500 11px var(--f-mono);color:var(--muted);margin-top:auto}
 .marks .sh{color:var(--gold-text);font-weight:600}
 .gen-sep{grid-column:1/-1;display:flex;align-items:baseline;gap:10px;padding:14px 2px 2px;border-bottom:1px solid var(--line);margin-top:6px}
 .gen-sep:first-child{margin-top:0;padding-top:2px}
@@ -297,7 +297,7 @@ select.sel{padding:10px 10px;border:1px solid var(--line);border-radius:10px;bac
 .modal .act{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:10px;z-index:40;font-size:14px;max-width:calc(100% - 32px)}
 .foot{color:var(--muted);font-size:12px}
-.legal{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:12px;margin:0;max-width:75ch;line-height:1.55}
+.legal{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:12px;margin:0;line-height:1.55}
 .name-btn{border:0;background:rgba(255,255,255,.16);color:#fff;width:28px;height:28px;border-radius:8px;margin-left:10px;vertical-align:middle;cursor:pointer;font-size:15px;line-height:1}
 .name-btn:hover{background:rgba(255,255,255,.3)}
 .name-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
@@ -606,7 +606,7 @@ const CHECK = '<svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="
 function cardHTML(p){
   const n=p[0], g=got(n), c=S.c[n]||0, s=S.s[n]||0, o=S.o[n];
   const t1=p[4][0], t2=p[4][1]||t1;
-  const marks = [g&&c>1?`×${c}`:"", s?`<span class="sh">★ shiny${s>1?" ×"+s:""}</span>`:"", o?"origen":""].filter(Boolean).join(" · ");
+  const marks = [g&&c>1?`<span>×${c}</span>`:"", s?`<span class="sh">★ shiny${s>1?" ×"+s:""}</span>`:"", o?"<span>origen</span>":""].filter(Boolean).join('<span aria-hidden="true">·</span>');
   return `<div class="card ${g?"got":"miss"}" role="button" tabindex="0" data-n="${n}" style="--c1:var(--t-${t1});--c2:var(--t-${t2})" aria-label="${esc(p[1])}, ${g?"capturado":"falta"}">
     <span class="no">${ui.dex!=="" && !lineMode() && (dispNo(p) in X.DEXES[+ui.dex][2]) ? `<b class="rno">R-${String(X.DEXES[+ui.dex][2][dispNo(p)]).padStart(3,"0")}${isForm(n)?"Reg":""}</b> · ` : ""}${pad(dispNo(p))}</span>${isForm(n)?`<span class="regtag isreg">${RNAME[p[11]]}</span>`:`<span class="regtag" data-g="${p[3]}">${REGION_OF_GEN[p[3]]}</span>`}<span class="nm">${esc(p[1])}</span>
     <div class="types">${p[4].map(tpill).join("")}</div>
