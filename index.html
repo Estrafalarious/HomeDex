@@ -334,7 +334,7 @@ select.sel{padding:10px 10px;border:1px solid var(--line);border-radius:10px;bac
   <div class="case-in">
     <div class="lens" aria-hidden="true"></div>
     <div class="leds" aria-hidden="true"><i></i><i></i><i></i></div>
-    <h1><span id="h1name">Mi Pokédex</span><button class="name-btn" id="nameBtn" type="button" aria-label="Cambiar nombre">✎</button><small id="hSub">Registro HOME · Dex Nacional 1–1025 · v2.0</small></h1>
+    <h1><span id="h1name">Mi Pokédex</span><button class="name-btn" id="nameBtn" type="button" aria-label="Cambiar nombre">✎</button><small id="hSub">Registro HOME · Dex Nacional 1–1025 · v2.0.1</small></h1>
     <span class="sync" id="sync" data-s="local">Guardado en este navegador</span>
     <button class="partner-chip" id="partnerChip" type="button" hidden><span class="sw3" aria-hidden="true"></span><span class="pl"></span></button>
     <div class="lang-sw" role="group" aria-label="Idioma / Language"><button type="button" data-ui-lang="es" aria-pressed="true">ES</button><button type="button" data-ui-lang="en" aria-pressed="false">EN</button></div>
@@ -400,7 +400,7 @@ select.sel{padding:10px 10px;border:1px solid var(--line);border-radius:10px;bac
 
   <section class="grid" id="grid" aria-label="Pokédex"></section>
   <p class="foot" id="foot">Datos de especies, tipos y estadísticas base: PokeAPI. Tocá la casilla de cada tarjeta para marcarlo como capturado; tocá la tarjeta para ver la ficha, la cantidad, el shiny y la región de origen.</p>
-  <p class="ver" id="verFoot">HomeDex versión 2.0 · actualizada el 14/10/2026</p>
+  <p class="ver" id="verFoot">HomeDex versión 2.0.1 · actualizada el 14/10/2026</p>
   <p class="legal" id="legal">Proyecto de fans, gratuito y sin fines de lucro. No está afiliado, patrocinado ni respaldado por Nintendo, Game Freak, Creatures Inc. ni The Pokémon Company. Pokémon, Pokédex y los nombres, personajes e imágenes relacionados son marcas y obras de sus respectivos titulares, a quienes pertenecen todos los derechos. Datos de especies, evoluciones y Pokédex regionales: PokeAPI (proyecto comunitario). Datos de Pokémon GO: archivos del juego publicados por la comunidad PokeMiners.</p>
 </main>
 
@@ -460,7 +460,7 @@ const FORMS_OF = {}; FORMS.forEach(f=>(FORMS_OF[f[10]]=FORMS_OF[f[10]]||[]).push
 function dexRegion(i){ const l=X.DEXES[i][1];
   return /Alola/.test(l) ? "alola" : /Galar|Armadura|Corona/.test(l) ? "galar" : /Hisui/.test(l) ? "hisui" : /Paldea|Noroteo|Arándano/.test(l) ? "paldea" : ""; }
 const $ = id=>document.getElementById(id);
-const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc = s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const pad = n=>"#"+String(n).padStart(4,"0");
 const norm = s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
 const tpill = t=>`<span class="tp" data-t="${t}" style="--tc:var(--t-${t})">${tname(t)}</span>`;
@@ -1101,7 +1101,7 @@ $("expBtn").onclick=async()=>{
 
 /* ---------- TEST: read a Game Boy Color save (Pokémon Gold/Silver/Crystal, international) ---------- */
 const SAVTEST = true;    // save-file scanner: official since v2.0 (still tagged Beta)
-const APP_VERSION = "2.0";  const APP_DATE = "14/10/2026";
+const APP_VERSION = "2.0.1";  const APP_DATE = "14/10/2026";
 // Offsets: Bulbapedia, "Save data structure (Generation II)". Species index = National Dex number in Gen II.
 const GEN2 = {
   crystal:{name:"Pokémon Cristal", en:"Pokémon Crystal", ck:[0x2009,0x2B82,0x2D0D], own:0x2A27, seen:0x2A47, party:0x2865, cur:0x2700, curBox:0x2D10},
@@ -1407,7 +1407,7 @@ if(SAVTEST){
   const readAny = raw => { const buf=unwrapSave(raw); return readGO(raw) || readSwitch(buf) || readBDSP(buf) || readGen67(buf) || readGen5(buf) || readGen4(buf) || readGen3(buf) || readGen2(buf) || readGen1(buf); };   // strongest signatures first
   const readFile = f => new Promise(res=>{ const r=new FileReader(); r.onload=()=>{ let R=null; try{ R=readAny(r.result); }catch(e){} res({name:f.name, R}); }; r.onerror=()=>res({name:f.name, R:null}); r.readAsArrayBuffer(f); });
   async function handleFiles(list){
-    const files=[...list].filter(f=>(f.size>=0x8000 && f.size<=0x800000) || (/\.txt$/i.test(f.name) && f.size<=0x2000000));   // saves: 32 KB … 1 MB; Pokémon GO export: a .txt
+    const files=[...list].filter(f=>(f.size>=0x8000 && f.size<=0x800000) || (/\.txt$/i.test(f.name) && f.size<=5*1024*1024));   // saves: 32 KB … 1 MB; Pokémon GO export: a .txt
     if(!files.length){ toast(tr("Esos archivos no parecen partidas guardadas.","Those files do not look like save files.")); return; }
     showResults(await Promise.all(files.map(readFile)));
   }
