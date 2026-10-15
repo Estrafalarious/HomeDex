@@ -1,0 +1,16 @@
+{
+  "name": "HomeDex",
+  "short_name": "HomeDex",
+  "description": "Registro de tu colección de Pokémon HOME · Dex Nacional 1–1025",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#eceef0",
+  "theme_color": "#c8213a",
+  "icons": [
+    {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
