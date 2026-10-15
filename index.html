@@ -10,6 +10,10 @@
 <meta name="theme-color" content="#c8213a">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#c8213a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HomeDex">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
@@ -125,7 +129,7 @@ main{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:18px 60px;
 
 .tools{display:grid;gap:10px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px}
 .to-filters{display:none}
-@media (max-width:700px){
+@media (max-width:700px), (max-height:560px){
   .to-filters:not([hidden]){display:inline-flex;align-items:center;gap:6px;position:fixed;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:15;
     border:0;border-radius:999px;padding:11px 16px;background:var(--fg);color:var(--bg);font:600 14px var(--f-body);box-shadow:0 6px 20px rgba(0,0,0,.28);cursor:pointer}
 }
@@ -133,12 +137,15 @@ main{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:18px 60px;
 .seg{max-width:100%;overflow-x:auto}
 .fbtn{display:none;align-items:center;gap:6px;white-space:nowrap}
 .fcount{background:var(--accent);color:var(--on-accent);border-radius:999px;font:600 11px/1 var(--f-mono);padding:3px 6px}
-@media (max-width:700px){
+@media (max-width:700px), (max-height:560px){
   .fbtn{display:inline-flex}
-  .tools .search{flex:1 1 0}
+  .tools .search{flex:1 1 0;min-width:0}
   .tools.collapsed > .row:not(:first-child),
   .tools.collapsed > .row:first-child > :not(.search):not(.fbtn){display:none}
-  .tools:not(.collapsed){position:static}
+  /* open: stays where you are, scrolls inside itself, the search + "Hide filters" row stays on top */
+  .tools:not(.collapsed){background:var(--bg);max-height:75vh;max-height:75dvh;overflow-y:auto;overscroll-behavior:contain;padding-top:0;box-shadow:0 8px 16px -10px rgba(0,0,0,.35)}
+  .tools:not(.collapsed) > .row:first-child{position:sticky;top:0;z-index:2;background:var(--bg);padding-block:10px 4px}
+  .tools:not(.collapsed) > .row:first-child > .search{flex:1 1 calc(100% - 190px)}
   .tools:not(.collapsed) .caret{transform:rotate(180deg)}
   .caret{display:inline-block;transition:transform .15s}
 }
@@ -168,6 +175,7 @@ select.sel{padding:10px 10px;border:1px solid var(--line);border-radius:10px;bac
 .drop .dz-sub{font-size:12px;color:var(--muted)}
 .drop .dz-sub b{font-size:inherit;max-width:none}
 .modal .box.savbox{width:min(640px,100%)}
+.ios-steps{margin:8px 0 12px;padding-left:20px;display:grid;gap:8px;line-height:1.45}.ios-ico{display:inline-block;border:1.5px solid currentColor;border-radius:4px;padding:0 4px;font-size:12px;line-height:1.3}
 .qrwrap{display:grid;place-items:center}.qrwrap canvas{width:min(100%,380px);height:auto;image-rendering:pixelated;border-radius:8px}
 .pplist{display:flex;flex-wrap:wrap;gap:6px;max-height:40vh;overflow:auto}
 .shareimg{width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
@@ -1045,7 +1053,7 @@ $("fBtn").onclick=()=>{
   const t=$("tools"), open=t.classList.toggle("collapsed")===false;
   $("fBtn").setAttribute("aria-expanded",open);
   $("fBtn").firstChild.textContent = open ? tr("Ocultar filtros","Hide filters") : tr("Filtros","Filters");
-  if(!open) t.scrollIntoView({block:"start"});
+  if(open) t.scrollTop=0;
 };
 function updateFilterCount(){
   const n=(ui.v!=="all")+(ui.gens.length>0)+(!!ui.sp)+(!!ui.type)+(!!ui.type2)+(ui.dex!=="")+(!!ui.line);
@@ -1140,7 +1148,7 @@ $("expBtn").onclick=async()=>{
 
 /* ---------- TEST: read a Game Boy Color save (Pokémon Gold/Silver/Crystal, international) ---------- */
 const SAVTEST = true;    // save-file scanner: official since v2.0 (still tagged Beta)
-const APP_VERSION = "2.2";  const APP_DATE = "15/10/2026";
+const APP_VERSION = "2.2.1";  const APP_DATE = "15/10/2026";
 // Offsets: Bulbapedia, "Save data structure (Generation II)". Species index = National Dex number in Gen II.
 const GEN2 = {
   crystal:{name:"Pokémon Cristal", en:"Pokémon Crystal", ck:[0x2009,0x2B82,0x2D0D], own:0x2A27, seen:0x2A47, party:0x2865, cur:0x2700, curBox:0x2D10},
@@ -1583,7 +1591,7 @@ const HELP_V21_ES = `<details><summary>Pasar tus datos a otro dispositivo (QR)</
 <li>En el celular, <b>Compartir</b> la manda directo a WhatsApp o a tus redes; <b>Descargar</b> la guarda como imagen.</li></ul></div></details>
 <details><summary>Instalar HomeDex como app</summary><div class="hb"><ul>
 <li><b>Android y PC (Chrome o Edge):</b> tocá <b>Instalar app</b> cuando aparezca, o usá la opción <i>Instalar</i> del menú del navegador.</li>
-<li><b>iPhone y iPad:</b> abrí la página en Safari, tocá <b>Compartir</b> y después <b>Agregar a inicio</b>.</li>
+<li><b>iPhone y iPad:</b> el botón <b>Instalar app</b> muestra los pasos: abrí la página en Safari, tocá <b>Compartir</b> (en las versiones nuevas puede estar dentro del menú <b>···</b>) y después <b>Agregar a inicio</b>. Ojo: en iPhone la app instalada guarda sus datos aparte de Safari; pasalos con <b>Descargar respaldo</b> y <b>Cargar respaldo</b>.</li>
 <li>Instalada, se abre a pantalla completa, funciona sin internet (los sprites que ya viste quedan guardados) y se actualiza sola cuando hay una versión nueva.</li></ul></div></details>
 <details><summary>Privacidad y tus datos</summary><div class="hb"><ul>
 <li>Lo que marcás se guarda <b>solo en este navegador</b>; no hay cuentas ni base de datos. (En la versión de Claude, se guarda en tu cuenta de Claude.)</li>
@@ -1601,7 +1609,7 @@ const HELP_V21_EN = `<details><summary>Move your data to another device (QR)</su
 <li>On phones, <b>Share</b> sends it straight to WhatsApp or social apps; <b>Download</b> saves it as an image.</li></ul></div></details>
 <details><summary>Install HomeDex as an app</summary><div class="hb"><ul>
 <li><b>Android and PC (Chrome or Edge):</b> tap <b>Install app</b> when it shows up, or use the browser menu's <i>Install</i> option.</li>
-<li><b>iPhone and iPad:</b> open the page in Safari, tap <b>Share</b> and then <b>Add to Home Screen</b>.</li>
+<li><b>iPhone and iPad:</b> the <b>Install app</b> button shows the steps: open the page in Safari, tap <b>Share</b> (in newer versions it may be inside the <b>···</b> menu) and then <b>Add to Home Screen</b>. Note: on iPhone the installed app keeps its data separate from Safari; move it with <b>Download backup</b> and <b>Load backup</b>.</li>
 <li>Once installed it opens full screen, works offline (sprites you already saw are kept) and updates itself when there is a new version.</li></ul></div></details>
 <details><summary>Privacy and your data</summary><div class="hb"><ul>
 <li>What you mark is stored <b>only in this browser</b>; there are no accounts and no database. (In the Claude version, it is stored in your Claude account.)</li>
@@ -1925,6 +1933,25 @@ if(CAN_SW){
   window.addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); deferred=e; $("installBtn").hidden=false; });
   $("installBtn").onclick=async()=>{ if(!deferred) return; deferred.prompt(); try{ await deferred.userChoice; }catch(e){} deferred=null; $("installBtn").hidden=true; };
   window.addEventListener("appinstalled",()=>{ $("installBtn").hidden=true; toast(tr("HomeDex quedó instalada","HomeDex is installed")); });
+  /* iPhone / iPad: Safari never offers the install prompt, so the button opens step-by-step instructions instead */
+  const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+  const INSTALLED = navigator.standalone===true || matchMedia("(display-mode: standalone)").matches;
+  if(IOS && !INSTALLED){
+    $("installBtn").hidden=false;
+    $("installBtn").onclick=()=>{
+      const has = Object.keys(S.c||{}).length>0;
+      modal(`<h3>${tr("Instalar HomeDex en iPhone / iPad","Install HomeDex on iPhone / iPad")}</h3>
+        <ol class="ios-steps">
+          <li>${tr("Abrí esta página en <b>Safari</b> (desde Instagram, WhatsApp u otras apps no se puede: tocá «Abrir en el navegador»).","Open this page in <b>Safari</b> (it cannot be done from Instagram, WhatsApp or other apps: tap “Open in browser”).")}</li>
+          <li>${tr("Tocá <b>Compartir</b> <span class=\"ios-ico\" aria-hidden=\"true\">⬆︎</span> (el cuadrado con la flecha; en las versiones nuevas de Safari puede estar dentro del menú <b>···</b>).","Tap <b>Share</b> <span class=\"ios-ico\" aria-hidden=\"true\">⬆︎</span> (the square with the arrow; in newer Safari versions it may be inside the <b>···</b> menu).")}</li>
+          <li>${tr("Elegí <b>Agregar a inicio</b> (si no aparece, deslizá la lista hacia abajo) y confirmá con <b>Agregar</b>.","Choose <b>Add to Home Screen</b> (scroll down the list if you don't see it) and confirm with <b>Add</b>.")}</li>
+          <li>${tr("Abrí HomeDex desde el ícono: funciona sin conexión.","Open HomeDex from the icon: it works offline.")}</li>
+        </ol>
+        ${has?`<p class="hint" style="font-size:13px">${tr("<b>Importante:</b> en iPhone la app instalada guarda sus datos aparte de Safari, así que arranca vacía. Antes de instalar tocá <b>Descargar respaldo</b>; después, dentro de la app, usá <b>Cargar respaldo</b> y elegí ese archivo.","<b>Important:</b> on iPhone the installed app keeps its data separate from Safari, so it starts empty. Before installing, tap <b>Download backup</b>; then, inside the app, use <b>Load backup</b> and pick that file.")}</p>`:""}
+        <div class="act">${has?`<button class="btn" id="iosBak">${tr("Descargar respaldo","Download backup")}</button>`:""}<button class="btn pri" data-cancel>${tr("Entendido","Got it")}</button></div>`,()=>{});
+      if(has) $("iosBak").onclick=()=>$("bakBtn").click();
+    };
+  }
 }
 
 paintStatic();
