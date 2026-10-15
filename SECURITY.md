@@ -9,7 +9,7 @@ HomeDex es una página estática: no tiene servidor propio, base de datos, cuent
 - **Pasar con QR:** la colección viaja comprimida dentro del código o del enlace (después del signo `#`, que los navegadores no envían a ningún servidor). Apenas se abre, la página borra esos datos de la barra de direcciones. Quien tenga el código o el enlace puede ver esa colección.
 - **Imagen para compartir:** se dibuja en el navegador; no se sube a ningún lado.
 - Vercel Analytics registra estadísticas de visitas a la página.
-- Las tipografías se sirven desde la propia página. Los sprites se cargan desde Poképédia.
+- Las tipografías y los íconos en pixel art (del repositorio de sprites de PokeAPI) se sirven desde la propia página. Los sprites grandes se cargan desde Poképédia.
 
 ## Medidas aplicadas
 
