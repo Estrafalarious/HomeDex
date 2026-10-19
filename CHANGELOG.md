@@ -9,6 +9,22 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ---
 
+## v2.2.3 — Íconos de 9.ª generación / Gen 9 icons (19/10/2026)
+
+### Español
+- **Íconos para las 127 especies que no tenían:** las 120 de 9.ª generación y las 7 de Hisui (Wyrdeer, Kleavor, Ursaluna, Basculegion, Sneasler, Overqwil y Enamorus).
+- Las 23 formas regionales que mostraban el ícono de su especie base ahora tienen el propio (por ejemplo, los tres Tauros de Paldea).
+- Origen: sprites en pixel art del repositorio de sprites de PokeAPI, el mismo de los demás íconos.
+- La imagen con todos los íconos pasa de 243 KB a 375 KB.
+
+### English
+- **Icons for the 127 species that had none:** the 120 from Gen 9 and the 7 from Hisui (Wyrdeer, Kleavor, Ursaluna, Basculegion, Sneasler, Overqwil and Enamorus).
+- The 23 regional forms that showed their base species' icon now have their own (for example, the three Paldean Tauros).
+- Source: pixel-art sprites from the PokeAPI sprites repository, the same as the other icons.
+- The image holding all the icons grows from 243 KB to 375 KB.
+
+---
+
 ## v2.2.2 — Filtros en el celular / Filters on phones (17/10/2026)
 
 ### Español
