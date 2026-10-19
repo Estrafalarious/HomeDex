@@ -1,7 +1,7 @@
 /* HomeDex service worker: the page works offline and installs as an app.
    Page: network first (always the latest version when online), cached copy when offline.
    Sprites (Poképédia): kept after the first view, so they show offline too. */
-const SHELL = "homedex-shell-2.2.1", IMG = "homedex-img";
+const SHELL = "homedex-shell-2.2.2", IMG = "homedex-img";
 const ASSETS = ["/", "/icons.png", "/manifest.webmanifest", "/icon-192.png", "/icon-512.png", "/icon-maskable-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(SHELL).then(c => c.addAll(ASSETS))); self.skipWaiting(); });
 self.addEventListener("activate", e => {

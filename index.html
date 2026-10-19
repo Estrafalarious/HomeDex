@@ -143,8 +143,9 @@ main{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:18px 60px;
   .tools.collapsed > .row:not(:first-child),
   .tools.collapsed > .row:first-child > :not(.search):not(.fbtn){display:none}
   /* open: stays where you are, scrolls inside itself, the search + "Hide filters" row stays on top */
-  .tools:not(.collapsed){background:var(--bg);max-height:75vh;max-height:75dvh;overflow-y:auto;overscroll-behavior:contain;padding-top:0;box-shadow:0 8px 16px -10px rgba(0,0,0,.35)}
-  .tools:not(.collapsed) > .row:first-child{position:sticky;top:0;z-index:2;background:var(--bg);padding-block:10px 4px}
+  /* open: a fixed block under the top bar; scrolling down folds it away again (script below) */
+  .tools:not(.collapsed){background:var(--bg);box-shadow:0 8px 16px -10px rgba(0,0,0,.35);max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+  .tools > .row{min-width:0;max-width:100%}
   .tools:not(.collapsed) > .row:first-child > .search{flex:1 1 calc(100% - 190px)}
   .tools:not(.collapsed) .caret{transform:rotate(180deg)}
   .caret{display:inline-block;transition:transform .15s}
@@ -1049,12 +1050,25 @@ document.querySelector(".seg").addEventListener("click",e=>{ const b=e.target.cl
 /* type options: paintStatic() */
 $("tSel").onchange=e=>{ ui.type=e.target.value; if(!ui.type || ui.type2===ui.type) ui.type2=""; saveUI(); renderChips(); renderGrid(); };
 $("tSel2").onchange=e=>{ ui.type2=e.target.value; saveUI(); renderChips(); renderGrid(); };
-$("fBtn").onclick=()=>{
-  const t=$("tools"), open=t.classList.toggle("collapsed")===false;
+/* phones: "Filtros" opens the block under the bar; closing it (by the button or by scrolling down) keeps the cards in place */
+let fOpenY=0;
+function setFilters(open){
+  const t=$("tools"), g=$("grid"), before=g.getBoundingClientRect().top, stuck=t.getBoundingClientRect().top<=1;
+  t.classList.toggle("collapsed",!open);
   $("fBtn").setAttribute("aria-expanded",open);
   $("fBtn").firstChild.textContent = open ? tr("Ocultar filtros","Hide filters") : tr("Filtros","Filters");
-  if(open) t.scrollTop=0;
-};
+  if(stuck){                                                     // bar stuck to the top: keep the cards where they are
+    const shift=g.getBoundingClientRect().top-before; if(shift) scrollBy(0,shift);   // (Chrome already does this by itself)
+    const off=t.getBoundingClientRect().top; if(off>1) scrollBy(0,off);              // …but never so far back that the bar comes loose
+  }
+  if(open){ t.scrollTop=0; fOpenY=scrollY; }
+}
+$("fBtn").onclick=()=>setFilters($("tools").classList.contains("collapsed"));
+addEventListener("scroll",()=>{
+  const t=$("tools"); if(t.classList.contains("collapsed") || getComputedStyle($("fBtn")).display==="none") return;
+  if(scrollY<fOpenY || t.getBoundingClientRect().top>1) fOpenY=scrollY;   // count only once the block is stuck to the top
+  else if(scrollY-fOpenY>40) setFilters(false);
+},{passive:true});
 function updateFilterCount(){
   const n=(ui.v!=="all")+(ui.gens.length>0)+(!!ui.sp)+(!!ui.type)+(!!ui.type2)+(ui.dex!=="")+(!!ui.line);
   const el=$("fCount"); el.hidden=!n; el.textContent=n;
@@ -1148,7 +1162,7 @@ $("expBtn").onclick=async()=>{
 
 /* ---------- TEST: read a Game Boy Color save (Pokémon Gold/Silver/Crystal, international) ---------- */
 const SAVTEST = true;    // save-file scanner: official since v2.0 (still tagged Beta)
-const APP_VERSION = "2.2.1";  const APP_DATE = "15/10/2026";
+const APP_VERSION = "2.2.2";  const APP_DATE = "17/10/2026";
 // Offsets: Bulbapedia, "Save data structure (Generation II)". Species index = National Dex number in Gen II.
 const GEN2 = {
   crystal:{name:"Pokémon Cristal", en:"Pokémon Crystal", ck:[0x2009,0x2B82,0x2D0D], own:0x2A27, seen:0x2A47, party:0x2865, cur:0x2700, curBox:0x2D10},

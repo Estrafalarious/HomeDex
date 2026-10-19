@@ -9,6 +9,22 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ---
 
+## v2.2.2 — Filtros en el celular / Filters on phones (17/10/2026)
+
+### Español
+- El botón **Filtros** muestra u oculta los filtros. Abiertos, quedan fijos arriba como un bloque, debajo del buscador.
+- Al bajar por la lista, el bloque se pliega solo y queda nada más que la barra con el buscador y el botón.
+- Al abrir o cerrar los filtros, las tarjetas no se mueven de lugar.
+- Arreglo: en iPhone el panel abierto se corría hacia los costados y cortaba los textos.
+
+### English
+- The **Filters** button shows or hides the filters. When open, they stay fixed at the top as a block, under the search box.
+- Scrolling down the list folds the block away, leaving just the bar with the search box and the button.
+- Opening or closing the filters no longer moves the cards.
+- Fix: on iPhone the open panel shifted sideways and cut off the text.
+
+---
+
 ## v2.2.1 — Arreglos en celulares e instalación en iPhone / Phone fixes and iPhone install (15/10/2026)
 
 ### Español
