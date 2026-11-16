@@ -497,13 +497,31 @@ select.sel{padding:10px 10px;border:1px solid var(--line);border-radius:10px;bac
 .hs-mini .hs-it{min-height:38px;cursor:default;font-size:12px;padding:3px 6px}
 .hs-chk{display:flex;gap:8px;align-items:center;font-size:14px;margin:10px 0 4px}
 .hs-fold{margin-top:6px}.hs-fold summary{cursor:pointer;font-size:13px;margin-bottom:6px}
+.hs-left{display:grid;gap:8px;flex:none}
+.hs-shy{min-height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--screen);color:var(--fg);font:inherit;font-size:14px;cursor:pointer}
+.hs-shy[aria-pressed=true]{border-color:#c9a227;background:color-mix(in srgb,#e5b33a 22%,var(--screen));font-weight:700}
+.hs-find{display:grid;gap:6px}.hs-find .search{width:100%;box-sizing:border-box}
+.hs-res{display:grid;gap:6px}
+.hs-res .hs-op em,.hs-op em{font-style:normal;font-size:11px;opacity:.7;font-weight:400}
+.hs-two{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.hs-two .hs-op{justify-content:center;text-align:center;font-size:14px}
+.hs-nop[aria-pressed=true]{border-color:var(--accent)}
+@media (max-width:560px){
+  .hs-one{flex-wrap:nowrap;gap:10px}
+  .hs-left{width:34%}
+  .hs-big{width:100%;max-height:30vh}
+  .hs-shy{font-size:13px;min-height:38px}
+  .hs-col .hs-op{min-height:46px;font-size:14px}
+  .hs-two{grid-template-columns:1fr}
+}
+.hsbox .act{position:sticky;bottom:-1px;background:inherit;padding-top:8px;z-index:2}
 </style>
 
 <header class="case">
   <div class="case-in">
     <div class="lens" aria-hidden="true"></div>
     <div class="leds" aria-hidden="true"><i></i><i></i><i></i></div>
-    <h1><span id="h1name">Mi Pokédex</span><button class="name-btn" id="nameBtn" type="button" aria-label="Cambiar nombre">✎</button><small id="hSub">Registro HOME · Dex Nacional 1–1025 · v3.5</small></h1>
+    <h1><span id="h1name">Mi Pokédex</span><button class="name-btn" id="nameBtn" type="button" aria-label="Cambiar nombre">✎</button><small id="hSub">Registro HOME · Dex Nacional 1–1025 · v3.6</small></h1>
     <span class="sync" id="sync" data-s="local">Guardado en este navegador</span>
     <button class="partner-chip" id="partnerChip" type="button" hidden><span class="pico"></span><span class="sw3" aria-hidden="true"></span><span class="pl"></span></button>
     <div class="lang-sw" role="group" aria-label="Idioma / Language"><button type="button" data-ui-lang="es" aria-pressed="true">ES</button><button type="button" data-ui-lang="en" aria-pressed="false">EN</button></div>
@@ -1305,7 +1323,7 @@ $("expBtn").onclick=async()=>{
 
 /* ---------- TEST: read a Game Boy Color save (Pokémon Gold/Silver/Crystal, international) ---------- */
 const SAVTEST = true;    // save-file scanner: official since v2.0 (still tagged Beta)
-const APP_VERSION = "3.5.0";  const APP_DATE = "16/11/2026";
+const APP_VERSION = "3.6.1";  const APP_DATE = "16/11/2026";
 // Offsets: Bulbapedia, "Save data structure (Generation II)". Species index = National Dex number in Gen II.
 const GEN2 = {
   crystal:{name:"Pokémon Cristal", en:"Pokémon Crystal", ck:[0x2009,0x2B82,0x2D0D], own:0x2A27, seen:0x2A47, party:0x2865, cur:0x2700, curBox:0x2D10},
@@ -2772,10 +2790,13 @@ function review(cells, nFiles, bad){
   const buddies=[...new Set(cells.filter(c=>c.buddy && likely(c)).map(c=>c.cand[0].n))];   // GO best buddies: candidates for the app's partner
   const shinyHint=[...sure.values()].filter(x=>x.sh && !S.s[x.n] && !shinyGo.some(y=>y.n===x.n) && !cells.some(c=>c.kind==="go" && c.cand[0] && c.cand[0].n===x.n));   // HOME only: GO tells shinies apart by its sparkles
   // three steps: 1) sure ones (grid), 2) doubtful ones one at a time, 3) summary with shiny, partner and the Mark button
-  const st={ on:new Set(newSure.map(x=>x.n)), pick:doubtShow.map(c=>(!c.occ && c.cand[0].s<LIKELY)?0:-1), j:0, all:false, shGo:true, sh:false, bud:0 };
+  const st={ on:new Set(newSure.map(x=>x.n)), pick:doubtShow.map(c=>(!c.occ && c.cand[0].s<LIKELY)?0:-1), cust:{}, shy:{}, find:false, j:0, all:false, shGo:true, sh:false, bud:0 };
   const steps=[...(newSure.length?["sure"]:[]), ...(doubtShow.length?["doubt"]:[]), "end"];
   let si=0;
-  const chosen=()=>{ const out=new Set([...st.on]); doubtShow.forEach((c,j)=>{ const k=st.pick[j]; if(k>=0 && !got(c.cand[k].n)) out.add(c.cand[k].n); }); return [...out].filter(n=>!got(n)).sort((a,b)=>a-b); };
+  // pick per doubtful cell: 0-2 = one of the candidates, 3 = searched by the person, -1 = undecided, -2 = not a Pokémon
+  const pickedN=j=>{ const k=st.pick[j]; return k>=0&&k<3 ? doubtShow[j].cand[k].n : k===3 ? st.cust[j] : null; };
+  const chosen=()=>{ const out=new Set([...st.on]); doubtShow.forEach((c,j)=>{ const n=pickedN(j); if(n && !got(n)) out.add(n); }); return [...out].filter(n=>!got(n)).sort((a,b)=>a-b); };
+  const shyPicked=()=>[...new Set(doubtShow.map((c,j)=>st.shy[j]?pickedN(j):null).filter(n=>n && !S.s[n]))];
   const head=()=>`<h3>${tr("Esto encontré","Here is what I found")} <span class="beta">Beta</span></h3>
     <p class="hs-steps">${steps.map((k,i)=>`<span class="${i===si?"cur":i<si?"done":""}">${i+1}. ${k==="sure"?tr("Seguros","Sure"):k==="doubt"?tr("Para revisar","To review"):tr("Confirmar","Confirm")}</span>`).join("")}</p>`;
   const sumLine=`<p class="hs-sum">${tr(`${nFiles===1?"1 captura":nFiles+" capturas"} · ${cells.length} casilleros`,`${nFiles===1?"1 screenshot":nFiles+" screenshots"} · ${cells.length} slots`)} · <b>${newSure.length}</b> ${tr("nuevos","new")} · ${haveN} ${tr("que ya tenías","you already had")} · ${doubtShow.length} ${tr("para revisar","to review")}${lost?` · ${lost} ${tr("sin reconocer","not recognised")}`:""}</p>
@@ -2791,16 +2812,22 @@ function review(cells, nFiles, bad){
         ${newSure.length>MAXV && !st.all?`<button class="btn hs-more" id="hsAll">${tr(`Ver los ${newSure.length}`,`See all ${newSure.length}`)}</button>`:""}`;
       nav=`<button class="btn" data-cancel>${tr("Cancelar","Cancel")}</button><button class="btn pri" id="hsNext">${tr("Siguiente","Next")}</button>`;
     } else if(k==="doubt"){
-      const c=doubtShow[st.j], pk=st.pick[st.j];
+      const c=doubtShow[st.j], pk=st.pick[st.j], cu=st.cust[st.j];
       body=`${si===0?sumLine:""}<h4 class="hs-h">${tr("¿Cuál es?","Which one is it?")} <small>${st.j+1} ${tr("de","of")} ${doubtShow.length}${c.occ?" · "+tr("tapado en parte por un botón","partly covered by a button"):""}</small></h4>
-        <div class="hs-one"><img src="${c.thumb}" alt="${tr("Recorte de tu captura","Crop of your screenshot")}" class="hs-big">
+        <div class="hs-one"><div class="hs-left"><img src="${c.thumb}" alt="${tr("Recorte de tu captura","Crop of your screenshot")}" class="hs-big">
+        <button type="button" class="hs-shy" id="hsShy" aria-pressed="${!!st.shy[st.j]}">★ ${tr("¿Es shiny?","Is it shiny?")}</button></div>
         <div class="hs-ops hs-col">${c.cand.map((x,i)=>`<button type="button" class="hs-op" data-k="${i}" aria-pressed="${pk===i}">${icoHTML(x.n,"",40)}<span>${nmOf(x.n)}${got(x.n)?` <em>${tr("ya la tenés","have it")}</em>`:""}</span></button>`).join("")}
-        <button type="button" class="hs-op hs-none" data-k="-1" aria-pressed="${pk<0}"><span>${tr("Ninguno de estos","None of these")}</span></button></div></div>`;
+        ${cu?`<button type="button" class="hs-op" data-k="3" aria-pressed="${pk===3}">${icoHTML(cu,"",40)}<span>${nmOf(cu)} <em>${tr("elegido por vos","your choice")}</em></span></button>`:""}
+        <div class="hs-two"><button type="button" class="hs-op hs-none" id="hsFindBtn" aria-expanded="${st.find}"><span>🔍 ${tr("Es otro: buscarlo","Another one: search")}</span></button>
+        <button type="button" class="hs-op hs-none hs-nop" data-k="-2" aria-pressed="${pk===-2}"><span>🚫 ${tr("Eso no es un Pokémon","Not a Pokémon")}</span></button></div>
+        ${st.find?`<div class="hs-find"><input id="hsQ" class="search" type="search" placeholder="${tr("Nombre o número","Name or number")}" autocomplete="off"><div class="hs-res" id="hsRes"></div></div>`:""}</div></div>`;
       nav=`${back}<button class="btn" data-cancel>${tr("Cancelar","Cancel")}</button><button class="btn pri" id="hsNext">${st.j<doubtShow.length-1?tr("Siguiente","Next"):tr("Terminar","Finish")}</button>`;
     } else {
       const ch=chosen(), list=st.all?ch:ch.slice(0,MAXV);
+      const shy=shyPicked();
       body=`${si===0?sumLine:""}<h4 class="hs-h">${ch.length?tr(`Se van a marcar ${ch.length} Pokémon`,`${ch.length} Pokémon will be marked`):tr("No hay Pokémon nuevos para marcar","No new Pokémon to mark")}</h4>
         ${ch.length?`<div class="hs-grid hs-mini">${list.map(n=>`<span class="hs-it on">${icoHTML(n,"",30)}<span>${nmOf(n)}</span></span>`).join("")}</div>${ch.length>MAXV && !st.all?`<button class="btn hs-more" id="hsAll">${tr(`Ver los ${ch.length}`,`See all ${ch.length}`)}</button>`:""}`:""}
+        ${shy.length?`<h4 class="hs-h">${tr(`Shiny que marcaste vos (${shy.length})`,`Shinies you marked (${shy.length})`)}</h4><div class="hs-grid hs-mini">${shy.map(n=>`<span class="hs-it on">${icoHTML(n,"",30)}<span>${nmOf(n)} ★</span></span>`).join("")}</div>`:""}
         ${shinyGo.length?`<label class="hs-chk"><input type="checkbox" id="hsShGo" ${st.shGo?"checked":""}> <span>${tr(`Marcar como shiny los que tienen las tres estrellitas de GO (${shinyGo.length})`,`Mark as shiny those with GO's three sparkles (${shinyGo.length})`)}</span></label><div class="hs-grid hs-mini">${shinyGo.map(x=>`<span class="hs-it on">${icoHTML(x.n,"",30)}<span>${nmOf(x.n)} ★</span></span>`).join("")}</div>`:""}
         ${shinyHint.length?`<label class="hs-chk"><input type="checkbox" id="hsSh" ${st.sh?"checked":""}> <span>${tr(`Marcar también como shiny los que parecen shiny (${shinyHint.length})`,`Also mark as shiny those that look shiny (${shinyHint.length})`)}</span></label><div class="hs-grid hs-mini">${shinyHint.map(x=>`<span class="hs-it">${icoHTML(x.n,"",30)}<span>${nmOf(x.n)}</span></span>`).join("")}</div>`:""}
         ${buddies.length?`<div class="hs-bud"><b>${tr("Compañero de la app","App partner")}</b> <small>${tr("(estos tienen la medalla de mejor amigo de GO; podés elegir uno como compañero de la HomeDex)","(these have GO's best-buddy medal; you can pick one as your HomeDex partner)")}</small>
@@ -2813,14 +2840,23 @@ function review(cells, nFiles, bad){
       chosen().forEach(n=>{ if(!got(n)){ S.c[n]=1; a++; } });
       if(st.sh) shinyHint.forEach(x=>{ if(!S.s[x.n]){ setCount("s",x.n,1); s++; } });
       if(st.shGo) shinyGo.forEach(x=>{ if(!S.s[x.n]){ setCount("s",x.n,1); s++; } });
+      shyPicked().forEach(n=>{ if(!S.s[n]){ setCount("s",n,1); s++; } });
       const bud=st.bud; if(bud && BY.get(bud)){ S.p=bud; applyPartner(); }
       persist(); renderAll(); toast(tr(`Marcados: ${a} capturados${s?` y ${s} shiny`:""}${bud?` · compañero: ${NM(BY.get(bud))}`:""}`,`Marked: ${a} caught${s?` and ${s} shiny`:""}${bud?` · partner: ${NM(BY.get(bud))}`:""}`));
     });
     const box=$("modal").querySelector(".box"); box.classList.add("savbox","hsbox"); box.scrollTop=0;
     const go=d=>{ st.all=false; si=Math.max(0,Math.min(steps.length-1,si+d)); if(steps[si]==="doubt") st.j = d>0 ? 0 : doubtShow.length-1; render(); };
     box.querySelectorAll("#hsSure .hs-it").forEach(b=>b.onclick=()=>{ const n=+b.dataset.n, on=!st.on.has(n); on?st.on.add(n):st.on.delete(n); b.classList.toggle("on",on); b.setAttribute("aria-pressed",on); });
-    box.querySelectorAll(".hs-one .hs-op").forEach(b=>b.onclick=()=>{ st.pick[st.j]=+b.dataset.k;
-      box.querySelectorAll(".hs-one .hs-op").forEach(o=>o.setAttribute("aria-pressed",String(o===b)));
+    const fb=$("hsFindBtn"); if(fb) fb.onclick=()=>{ st.find=!st.find; render(); if(st.find) setTimeout(()=>$("hsQ")?.focus(),30); };
+    const sy=$("hsShy"); if(sy) sy.onclick=()=>{ st.shy[st.j]=!st.shy[st.j]; sy.setAttribute("aria-pressed",String(!!st.shy[st.j])); };
+    const q=$("hsQ"); if(q) q.oninput=()=>{   // search any Pokémon or regional form by name (either language) or number
+      const t=norm(q.value.trim()), num=/^#?\d+$/.test(t)?parseInt(t.replace("#",""),10):0, out=[];
+      if(t) for(const p of [...DEX,...FORMS]){ if(num ? dispNo(p)===num : (norm(p[1]).includes(t)||norm(p[2]).includes(t))) out.push(p[0]); if(out.length>=8) break; }
+      $("hsRes").innerHTML = out.map(n=>`<button type="button" class="hs-op" data-n="${n}">${icoHTML(n,"",34)}<span>${nmOf(n)} <em>#${dispNo(BY.get(n))}</em></span></button>`).join("") || (t?`<p class="hint">${tr("Sin resultados","No results")}</p>`:"");
+      $("hsRes").querySelectorAll(".hs-op").forEach(b=>b.onclick=()=>{ st.cust[st.j]=+b.dataset.n; st.pick[st.j]=3; st.find=false; setTimeout(()=>{ if(st.j<doubtShow.length-1){ st.j++; render(); } else go(1); },180); b.setAttribute("aria-pressed","true"); });
+    };
+    box.querySelectorAll(".hs-one .hs-op[data-k]").forEach(b=>b.onclick=()=>{ st.pick[st.j]=+b.dataset.k; st.find=false;
+      box.querySelectorAll(".hs-one .hs-op[data-k]").forEach(o=>o.setAttribute("aria-pressed",String(o===b)));
       setTimeout(()=>{ if(st.j<doubtShow.length-1){ st.j++; render(); } else go(1); },180); });   // choosing moves on to the next one
     const nx=$("hsNext"); if(nx) nx.onclick=()=>{ if(k==="doubt" && st.j<doubtShow.length-1){ st.j++; render(); } else go(1); };
     const bk=$("hsBack"); if(bk) bk.onclick=()=>{ if(k==="doubt" && st.j>0){ st.j--; render(); } else go(-1); };

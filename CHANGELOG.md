@@ -7,10 +7,52 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 - **2.x** — desde las mejoras de seguridad hasta el medallero / from the security improvements to the medal case
 - **3.x** — desde el medallero / since the medal case
 - El tercer número (X.X.1, X.X.2…) marca mejoras menores o arreglos. / The third number (X.X.1, X.X.2…) marks minor improvements or fixes.
+- Las imágenes de cada versión son capturas de prueba (carpeta `changelog/`), hechas con datos de prueba o de ejemplo. / Each version's images are test screenshots (`changelog/` folder), made with test or sample data.
+
+---
+
+## v3.6.1 — "Eso no es un Pokémon" a la vista / "Not a Pokémon" in sight (16/11/2026)
+
+<p><img src="changelog/v3.6.1_revisar_celular.webp" alt="Paso 2 en un celular chico / Step 2 on a small phone" title="Paso 2 en un celular chico / Step 2 on a small phone" width="260"></p>
+
+
+### Español
+- En el paso **Para revisar**, "Es otro: buscarlo" y "Eso no es un Pokémon" quedan juntos, justo debajo de las tres opciones. Antes, "Eso no es un Pokémon" quedaba al final y en celulares chicos había que desplazarse para verlo, sobre todo con el buscador abierto.
+- En el celular, el recorte de la captura va al costado de las opciones y más chico, así entra todo en la pantalla.
+- Los botones de abajo (Atrás, Cancelar, Siguiente, Marcar) quedan siempre visibles.
+
+### English
+- In the **To review** step, "Another one: search" and "Not a Pokémon" sit together right below the three options. "Not a Pokémon" used to be at the end, and on small phones you had to scroll to see it, especially with the search open.
+- On phones, the screenshot crop sits beside the options and smaller, so everything fits on screen.
+- The bottom buttons (Back, Cancel, Next, Mark) always stay visible.
+
+---
+
+## v3.6.0 — Buscar, shiny y "no es un Pokémon" / Search, shiny and "not a Pokémon" (16/11/2026)
+
+<p><img src="changelog/v3.6_buscar_y_shiny.webp" alt="Buscar otro Pokémon y marcar shiny / Search another Pokémon and mark shiny" title="Buscar otro Pokémon y marcar shiny / Search another Pokémon and mark shiny" width="260"> <img src="changelog/v3.6_shiny_marcado_por_vos.webp" alt="Shiny que marcaste vos / Shinies you marked" title="Shiny que marcaste vos / Shinies you marked" width="260"></p>
+
+
+### Español
+- En el paso **Para revisar** del escáner de capturas, además de las tres opciones:
+  - **Es otro: buscarlo:** abre un buscador para elegir cualquier Pokémon o forma regional por nombre (en español o en inglés) o por número.
+  - **¿Es shiny?:** botón para indicar que ese Pokémon es shiny; se marca como shiny al confirmar.
+  - **Eso no es un Pokémon:** para cuando la app tomó un botón u otro dibujo de la pantalla como si fuera un Pokémon; pasa al siguiente sin marcar nada.
+- En el paso **Confirmar** aparece la lista "Shiny que marcaste vos" con sus sprites.
+
+### English
+- In the scanner's **To review** step, besides the three options:
+  - **It's another one: search:** opens a search box to pick any Pokémon or regional form by name (Spanish or English) or number.
+  - **Is it shiny?:** a button to say that Pokémon is shiny; it's marked as shiny when you confirm.
+  - **That's not a Pokémon:** for when the app took a button or another picture on the screen for a Pokémon; it moves on without marking anything.
+- The **Confirm** step shows a "Shinies you marked" list with their sprites.
 
 ---
 
 ## v3.5.0 — Confirmación en tres pasos y sprites / Three-step confirmation and sprites (16/11/2026)
+
+<p><img src="changelog/v3.5_paso1_seguros.webp" alt="Paso 1: seguros / Step 1: sure ones" title="Paso 1: seguros / Step 1: sure ones" width="260"> <img src="changelog/v3.5_paso2_de_a_uno.webp" alt="Paso 2: de a uno / Step 2: one at a time" title="Paso 2: de a uno / Step 2: one at a time" width="260"> <img src="changelog/v3.5_paso3_confirmar.webp" alt="Paso 3: confirmar / Step 3: confirm" title="Paso 3: confirmar / Step 3: confirm" width="260"></p>
+
 
 ### Español
 - **El escáner de capturas confirma en tres pasos:**
@@ -34,6 +76,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v3.4.0 — Compañero desde GO y más marcas / Partner from GO and more badges (16/11/2026)
 
+<p><img src="changelog/v3.4_companero_desde_go.webp" alt="Compañero desde GO / Partner from GO" title="Compañero desde GO / Partner from GO" width="260"></p>
+
+
 ### Español
 - **Nuevo: compañero desde GO.** Si una captura de GO tiene Pokémon con la medalla de mejor amigo, la pantalla de confirmación ofrece elegir uno como compañero de la HomeDex. Es opcional: por defecto queda "No cambiar".
 - Los shiny de GO también se detectan cuando el reconocimiento está bastante seguro pero no del todo (por ejemplo, un Charizard shiny con gorra de evento).
@@ -53,6 +98,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v3.3.0 — Shiny y marcas de Pokémon GO / Pokémon GO shinies and badges (16/11/2026)
+
+<p><img src="changelog/v3.3_shiny_de_go.webp" alt="Shiny de GO / GO shinies" title="Shiny de GO / GO shinies" width="260"></p>
+
 
 ### Español
 - **Shiny en GO:** el escáner detecta las tres estrellitas que GO pone junto al PC de los Pokémon shiny, y esos Pokémon vienen tildados para marcarse como shiny (podés destildarlos antes de confirmar).
@@ -76,6 +124,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v3.2.1 — HOME con 3 a 7 columnas / HOME with 3 to 7 columns (16/11/2026)
 
+<p><img src="changelog/v3.2.1_home_3_a_7_columnas.webp" alt="HOME con 3 a 7 columnas / HOME with 3 to 7 columns" title="HOME con 3 a 7 columnas / HOME with 3 to 7 columns" width="260"></p>
+
+
 ### Español
 - El escáner reconoce las capturas de HOME con cualquier cantidad de columnas (de 3 a 7), también cuando HOME muestra el nombre o el número debajo de cada Pokémon.
 - Ignora la estrella de favorito de HOME y las etiquetas de nombre y número, que antes podían confundir el reconocimiento.
@@ -95,6 +146,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v3.2.0 — Escanear capturas de Pokémon GO / Scan Pokémon GO screenshots (16/11/2026)
+
+<p><img src="changelog/v3.2_pokemon_go.webp" alt="Captura de Pokémon GO reconocida / Pokémon GO screenshot recognised" title="Captura de Pokémon GO reconocida / Pokémon GO screenshot recognised" width="260"></p>
+
 
 ### Español
 - **Nuevo (beta): el escáner de capturas ahora también lee Pokémon GO.** El botón pasa a llamarse *Escanear capturas (HOME / GO)* y acepta capturas de los dos juegos mezcladas.
@@ -117,6 +171,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v3.1.0 — Escanear capturas de HOME / Scan HOME screenshots (16/11/2026)
+
+<p><img src="changelog/v3.1_escanear_capturas.webp" alt="Escanear capturas / Scan screenshots" title="Escanear capturas / Scan screenshots" width="260"> <img src="changelog/v3.1_home_reconocidos.webp" alt="Captura de HOME reconocida / HOME screenshot recognised" title="Captura de HOME reconocida / HOME screenshot recognised" width="260"></p>
+
 
 ### Español
 - **Nuevo (beta): Escanear capturas de HOME.** Elegís una o varias capturas de la lista *Pokémon → Todos los Pokémon* de Pokémon HOME y la app reconoce cada Pokémon por su dibujo, incluidas las formas regionales.
@@ -170,6 +227,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v3.0.0 — Medallero / Medal case (13/11/2026)
 
+<p><img src="changelog/v3.0_medallero_portada.webp" alt="Medallero / Medal case" title="Medallero / Medal case" width="520"> <img src="changelog/v3.0_medallero_tipos.webp" alt="Medallero: regiones / Medal case: regions" title="Medallero: regiones / Medal case: regions" width="520"></p>
+
+
 ### Español
 - **Medallero nuevo:** 229 medallas que se ganan solas a medida que completás la Pokédex. Las categorías son colección, shiny, familias, tipos, regiones, grupos especiales, iniciales, intercambio y formas, Ash, campeones y Red, rivales, villanos, el manga Pokémon Adventures y la Pokédex de cada juego.
 - **Medallas con niveles:** van de Bronce a Platino pasando por Plata, Rubí, Zafiro, Esmeralda, Oro y Diamante. Cada nivel tiene su título; por ejemplo, la de Colección va de "¿Eres chico o chica?" a "Maestro Pokémon". Al 100 % llevan roseta dorada.
@@ -196,6 +256,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v2.2.3 — Íconos de 9.ª generación / Gen 9 icons (19/10/2026)
 
+<p><img src="changelog/v2.2.3_iconos_9na_generacion.webp" alt="Íconos de 9.ª generación / Gen 9 icons" title="Íconos de 9.ª generación / Gen 9 icons" width="520"></p>
+
+
 ### Español
 - **Íconos para las 127 especies que no tenían:** las 120 de 9.ª generación y las 7 de Hisui (Wyrdeer, Kleavor, Ursaluna, Basculegion, Sneasler, Overqwil y Enamorus).
 - Las 23 formas regionales que mostraban el ícono de su especie base ahora tienen el propio (por ejemplo, los tres Tauros de Paldea).
@@ -211,6 +274,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v2.2.2 — Filtros en el celular / Filters on phones (17/10/2026)
+
+<p><img src="changelog/v2.2.2_filtros_celular.webp" alt="Filtros en el celular / Filters on phones" title="Filtros en el celular / Filters on phones" width="260"></p>
+
 
 ### Español
 - El botón **Filtros** muestra u oculta los filtros. Abiertos, quedan fijos arriba como un bloque, debajo del buscador.
@@ -246,6 +312,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v2.2.0 — Íconos en pixel art / Pixel-art icons (15/10/2026)
 
+<p><img src="changelog/v2.2_iconos_pixel_art.webp" alt="Íconos en pixel art / Pixel-art icons" title="Íconos en pixel art / Pixel-art icons" width="520"></p>
+
+
 ### Español
 - **Íconos en pixel art** de cada Pokémon (del repositorio de sprites de PokeAPI, generaciones 7 y 8):
   - en cada tarjeta de la Pokédex (en gris los que te faltan);
@@ -269,6 +338,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v2.1.0 — QR, imagen para compartir y app instalable / QR, share image and installable app (15/10/2026)
+
+<p><img src="changelog/v2.1_imagen_para_compartir.webp" alt="Imagen para compartir / Share image" title="Imagen para compartir / Share image" width="260"> <img src="changelog/v2.1_pasar_con_qr.webp" alt="Pasar con QR (datos de ejemplo) / Move with QR (sample data)" title="Pasar con QR (datos de ejemplo) / Move with QR (sample data)" width="260"></p>
+
 
 ### Español
 - **Pasar con QR:** genera un código con toda tu colección. Al escanearlo con la cámara de otro celular se abre HomeDex y pregunta si combinar o reemplazar. También se puede copiar o compartir el enlace. Los datos viajan dentro del código, sin servidores.
@@ -310,6 +382,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v1.3.0 — Escanear partida / Scan save file (14/10/2026)
 
+<p><img src="changelog/v1.3_escanear_partida.webp" alt="Escanear partida / Scan save file" title="Escanear partida / Scan save file" width="260"> <img src="changelog/v1.3_partidas_leidas.webp" alt="Partidas leídas / Saves read" title="Partidas leídas / Saves read" width="260"></p>
+
+
 ### Español
 - **Escanear partida (Beta):** lee partidas guardadas y marca lo que tenés. Se pueden arrastrar varios archivos a la vez o elegirlos desde el explorador.
   - **Game Boy / Color:** Rojo, Azul, Amarillo, Oro, Plata, Cristal.
@@ -341,6 +416,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v1.2.0 — Búsqueda y segundo tipo / Search and second type (09/10/2026)
+
+<p><img src="changelog/v1.2_busqueda_linea_evolutiva.webp" alt="Búsqueda con línea evolutiva / Search with evolution line" title="Búsqueda con línea evolutiva / Search with evolution line" width="260"> <img src="changelog/v1.2_dos_tipos_fuego_volador.webp" alt="Filtro de dos tipos / Two-type filter" title="Filtro de dos tipos / Two-type filter" width="520"></p>
+
 
 ### Español
 - **Segundo tipo opcional** en el filtro (el orden de los dos tipos da igual).
@@ -377,6 +455,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v1.1.0 — Español / English (06/10/2026)
+
+<p><img src="changelog/v1.1_ingles.webp" alt="La app en inglés / The app in English" title="La app en inglés / The app in English" width="260"></p>
+
 
 ### Español
 - **Selector ES | EN** en el encabezado: toda la interfaz, la ayuda y los datos (nombres de Pokémon, tipos, juegos, cómo conseguirlo en Pokémon GO) en español o en inglés.
@@ -424,6 +505,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v0.8 — Resumen y Ayuda / Summary and Help (06/10/2026)
 
+<p><img src="changelog/v0.8_ayuda.webp" alt="Ayuda / Help" title="Ayuda / Help" width="520"> <img src="changelog/v0.8_resumen_por_generacion.webp" alt="Resumen por generación / Summary by generation" title="Resumen por generación / Summary by generation" width="520"></p>
+
+
 ### Español
 - Resumen con Legendarios, Singulares, Regionales e Iniciales.
 - Tabla por generación con dos decimales y barras de avance.
@@ -440,6 +524,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v0.7 — Dónde encontrarlos / Where to find them (06/10/2026)
 
+<p><img src="changelog/v0.7_donde_encontrarlo.webp" alt="Dónde encontrarlo / Where to find it" title="Dónde encontrarlo / Where to find it" width="260"></p>
+
+
 ### Español
 - Ubicaciones en estado salvaje por juego dentro de la ficha (PokeAPI; WikiDex para los juegos que PokeAPI no cubre).
 - Exclusivos de cada versión.
@@ -454,6 +541,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v0.6 — Formas regionales / Regional forms (06/10/2026)
 
+<p><img src="changelog/v0.6_formas_regionales.webp" alt="Formas regionales / Regional forms" title="Formas regionales / Regional forms" width="260"></p>
+
+
 ### Español
 - Formas regionales (Alola, Galar, Hisui, Paldea) con seguimiento propio y su propio filtro, que incluye las especies que solo evolucionan desde ellas.
 - Color de la región de origen en cada tarjeta.
@@ -466,6 +556,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v0.5 — Compañero / Partner (05/10/2026)
 
+<p><img src="changelog/v0.5_companero_gengar.webp" alt="Compañero: Gengar / Partner: Gengar" title="Compañero: Gengar / Partner: Gengar" width="260"> <img src="changelog/v0.5_companero_pikachu.webp" alt="Compañero: Pikachu / Partner: Pikachu" title="Compañero: Pikachu / Partner: Pikachu" width="260"></p>
+
+
 ### Español
 - Elegí un Pokémon compañero y la página toma sus colores (en modo claro y oscuro).
 
@@ -475,6 +568,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v0.4 — Naturalezas / Natures (05/10/2026)
+
+<p><img src="changelog/v0.4_ficha_naturaleza.webp" alt="Ficha con naturaleza, idioma y juego de origen / Entry with nature, language and origin game" title="Ficha con naturaleza, idioma y juego de origen / Entry with nature, language and origin game" width="260"></p>
+
 
 ### Español
 - Naturaleza de cada Pokémon en la ficha.
@@ -492,6 +588,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ## v0.3 — Tema e idiomas de origen / Theme and origin languages (05/10/2026)
 
+<p><img src="changelog/v0.3_modo_oscuro.webp" alt="Modo oscuro / Dark mode" title="Modo oscuro / Dark mode" width="260"></p>
+
+
 ### Español
 - Botón para cambiar entre modo claro y oscuro, con mejor contraste.
 - Idioma y juego de origen de cada Pokémon.
@@ -505,6 +604,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v0.2 — Pokédex regionales / Regional Pokédex (05/10/2026)
+
+<p><img src="changelog/v0.2_pokedex_regional_paldea.webp" alt="Pokédex regional de Paldea / Paldea regional Pokédex" title="Pokédex regional de Paldea / Paldea regional Pokédex" width="520"></p>
+
 
 ### Español
 - Pokédex regional de cada juego como filtro.
@@ -523,6 +625,9 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 ---
 
 ## v0.1 — Primera versión / First version (05/10/2026)
+
+<p><img src="changelog/v0.1_missingdex.webp" alt="Vista MissingDex / MissingDex view" title="Vista MissingDex / MissingDex view" width="260"> <img src="changelog/v0.1_pokedex_celular.webp" alt="La Pokédex en el celular / The Pokédex on a phone" title="La Pokédex en el celular / The Pokédex on a phone" width="260"></p>
+
 
 ### Español
 - Paso de la planilla de Google Sheets a una página web.
