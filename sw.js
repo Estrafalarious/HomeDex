@@ -1,8 +1,8 @@
 /* HomeDex service worker: the page works offline and installs as an app.
    Page: network first (always the latest version when online), cached copy when offline.
    Sprites (Poképédia): kept after the first view, so they show offline too. */
-const SHELL = "homedex-shell-2.2.3", IMG = "homedex-img";
-const ASSETS = ["/", "/icons.png", "/manifest.webmanifest", "/icon-192.png", "/icon-512.png", "/icon-maskable-512.png"];
+const SHELL = "homedex-shell-3.1.0", IMG = "homedex-img";
+const ASSETS = ["/", "/icons.png", "/medals.png", "/manifest.webmanifest", "/icon-192.png", "/icon-512.png", "/icon-maskable-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(SHELL).then(c => c.addAll(ASSETS))); self.skipWaiting(); });
 self.addEventListener("activate", e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== SHELL && k !== IMG).map(k => caches.delete(k)))).then(() => self.clients.claim()));
@@ -17,6 +17,10 @@ self.addEventListener("fetch", e => {
   }
   if (u.origin === location.origin) {
     if (u.pathname.startsWith("/_vercel/")) return;
+    if (u.pathname.startsWith("/scan-")) {   // screenshot scanner references: downloaded only when used, then kept for offline use
+      e.respondWith(caches.open(SHELL).then(async c => { const m = await c.match(r); if (m) return m; const res = await fetch(r); if (res.ok) c.put(r, res.clone()); return res; }));
+      return;
+    }
     e.respondWith(caches.match(r).then(m => m || fetch(r)));
     return;
   }

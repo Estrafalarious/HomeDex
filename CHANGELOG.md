@@ -4,8 +4,87 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 - **0.x** — desarrollo antes de publicar en GitHub / development before publishing on GitHub
 - **1.x** — desde la publicación hasta las mejoras de seguridad / from publication to the security improvements
-- **2.x** — desde las mejoras de seguridad / since the security improvements
+- **2.x** — desde las mejoras de seguridad hasta el medallero / from the security improvements to the medal case
+- **3.x** — desde el medallero / since the medal case
 - El tercer número (X.X.1, X.X.2…) marca mejoras menores o arreglos. / The third number (X.X.1, X.X.2…) marks minor improvements or fixes.
+
+---
+
+## v3.1.0 — Escanear capturas de HOME / Scan HOME screenshots (16/11/2026)
+
+### Español
+- **Nuevo (beta): Escanear capturas de HOME.** Elegís una o varias capturas de la lista *Pokémon → Todos los Pokémon* de Pokémon HOME y la app reconoce cada Pokémon por su dibujo, incluidas las formas regionales.
+- Funciona sin servidor: las capturas se analizan en tu dispositivo y no se suben a ningún lado. Las imágenes de referencia (alrededor de 1 MB) se descargan solo la primera vez que usás la función y después quedan guardadas para usarla sin conexión.
+- Antes de marcar nada aparece una lista para confirmar: los reconocidos con seguridad vienen tildados; los dudosos ofrecen hasta tres opciones (si la app está bastante segura, ya viene elegida la más probable). Solo suma: no desmarca nada.
+- Detecta sola la grilla de la captura, saltea los casilleros vacíos o cortados y no repite los Pokémon que aparecen en varias capturas.
+- Los shiny no se distinguen con seguridad: se sugieren sin tildar. Los casilleros tapados por los botones redondos de HOME se marcan como dudosos.
+- Las capturas que no son de HOME (por ejemplo, de Pokémon GO) se avisan y se saltean.
+- **Arreglo:** la lista de scripts permitidos de la versión publicada (`vercel.json`) no se había actualizado desde la 2.2.3, así que en las versiones 3.0.0 a 3.0.2 el navegador podía bloquear el código de la página. Ahora se calcula sola en cada versión.
+
+### English
+- **New (beta): Scan HOME screenshots.** Choose one or more screenshots of the *Pokémon → All Pokémon* list in Pokémon HOME and the app recognises each Pokémon from its picture, regional forms included.
+- No server needed: screenshots are analysed on your device and are not uploaded anywhere. The reference pictures (about 1 MB) download only the first time you use it and are then kept for offline use.
+- Before anything is marked you get a list to confirm: sure matches come ticked; doubtful ones offer up to three options (when the app is fairly sure, the likeliest one comes picked). It only adds: nothing gets unmarked.
+- It finds the screenshot's grid by itself, skips empty or cut-off slots and doesn't repeat Pokémon that appear in several screenshots.
+- Shinies can't be told apart reliably: they are suggested, unticked. Slots covered by HOME's round buttons are listed as doubtful.
+- Screenshots that are not from HOME (for example, Pokémon GO) are reported and skipped.
+- **Fix:** the list of allowed scripts in the published version (`vercel.json`) had not been updated since 2.2.3, so in versions 3.0.0 to 3.0.2 the browser could block the page's code. It is now computed automatically for every version.
+
+---
+
+## v3.0.2 — Filtros rápidos otra vez / Fast filters again (13/11/2026)
+
+### Español
+- **Arreglo:** en la copia que funciona sin conexión, quitar un filtro especial (Legendarios, Singulares, Iniciales…) o combinarlo con otro podía trabar la página varios segundos.
+- La causa era que las imágenes de íconos y medallas iban dentro de la página como texto muy largo, y el navegador lo volvía a leer cada vez que redibujaba. Ahora se cargan una sola vez como imagen.
+- Con ese cambio, redibujar toda la lista pasa de unos 5 segundos a menos de un cuarto de segundo.
+
+### English
+- **Fix:** in the copy that works offline, removing a special filter (Legendary, Mythical, Starters…) or combining it with another could freeze the page for several seconds.
+- The cause was that the icon and medal images were stored inside the page as very long text, and the browser re-read it on every redraw. Now they load once as an image.
+- With that change, redrawing the whole list goes from about 5 seconds to under a quarter of a second.
+
+---
+
+## v3.0.1 — Medallero más liviano / Lighter medal case (13/11/2026)
+
+### Español
+- Las medallas se recalculan solo cuando cambian tus datos: al marcar o desmarcar un Pokémon, al cargar un respaldo o al traer los datos de tu cuenta. Los filtros y la búsqueda ya no las tocan.
+- El cálculo espera un instante después de marcar, así la casilla responde al momento.
+- El estado de las medallas se guarda solo cuando cambia.
+- El brillo del botón Medallero late unas pocas veces y después queda quieto, en lugar de animarse sin parar.
+
+### English
+- Medals are recalculated only when your data changes: marking or unmarking a Pokémon, loading a backup or fetching your account data. Filters and search no longer touch them.
+- The calculation waits a moment after you mark something, so the checkbox responds right away.
+- The medal state is saved only when it changes.
+- The Medals button glow pulses a few times and then stays still, instead of animating nonstop.
+
+---
+
+## v3.0.0 — Medallero / Medal case (13/11/2026)
+
+### Español
+- **Medallero nuevo:** 229 medallas que se ganan solas a medida que completás la Pokédex. Las categorías son colección, shiny, familias, tipos, regiones, grupos especiales, iniciales, intercambio y formas, Ash, campeones y Red, rivales, villanos, el manga Pokémon Adventures y la Pokédex de cada juego.
+- **Medallas con niveles:** van de Bronce a Platino pasando por Plata, Rubí, Zafiro, Esmeralda, Oro y Diamante. Cada nivel tiene su título; por ejemplo, la de Colección va de "¿Eres chico o chica?" a "Maestro Pokémon". Al 100 % llevan roseta dorada.
+- **Medallas únicas:** llevan una roseta de color según la categoría: roja, azul o verde.
+- **Medallas ocultas:** míticos, combos legendarios, colecciones de HOME, el 100 % de cada región y las líneas completas de iniciales no se muestran hasta ganarlas. En la última página se puede revelar la misión de cada una.
+- **Botón Medallero:** está en la barra de arriba y muestra **!** cuando hay medallas nuevas. Se recogen tocándolas en el estuche, con una animación de giro. Una sola vez alcanza aunque la medalla haya subido varios niveles.
+- **Ficha de cada medalla:** al pasar el mouse o tocarla muestra el título, el logro o lo que falta, y un botón con la próxima misión.
+- **Aviso al ganar medallas:** al marcar un Pokémon que te da medallas nuevas, aparece un único aviso animado, aunque ganes varias juntas.
+- **Colores:** el estuche toma los colores del compañero; sin compañero, usa el rojo de HomeDex. Respeta el modo oscuro y la opción de reducir movimiento.
+- **Imágenes:** las medallas están en una sola imagen nueva, `medals.png`, de 246 KB.
+
+### English
+- **New medal case:** 229 medals earned automatically as you complete your dex. The categories are collection, shiny, families, types, regions, special groups, starters, trades and forms, Ash, champions and Red, rivals, villains, the Pokémon Adventures manga and each game's dex.
+- **Medals with levels:** they go from Bronze to Platinum through Silver, Ruby, Sapphire, Emerald, Gold and Diamond. Each level has its own title; for example, the Collection medal goes from "Are you a boy or a girl?" to "Pokémon Master". At 100% they get a golden rosette.
+- **Single medals:** they get a rosette colored by category: red, blue or green.
+- **Hidden medals:** mythicals, legendary combos, HOME collections, 100% of each region and full starter lines stay hidden until earned. On the last page you can reveal each one's mission.
+- **Medals button:** it sits in the top bar and shows **!** when there are new medals. You collect them by tapping them in the case, with a flip animation. One tap is enough even if the medal went up several levels.
+- **Medal details:** hovering over or tapping a medal shows its title, the achievement or what is missing, and a button with the next mission.
+- **New-medal notice:** marking a Pokémon that earns new medals shows a single animated notice, even if you earn several at once.
+- **Colors:** the case takes the partner's colors; with no partner, it uses HomeDex red. It respects dark mode and the reduced-motion setting.
+- **Images:** the medals live in one new image, `medals.png`, 246 KB.
 
 ---
 
