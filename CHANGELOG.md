@@ -11,6 +11,127 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ---
 
+## v3.9.0 — Shiny desde la Pokédex de GO / Shinies from GO's Pokédex (16/11/2026)
+
+<p><img src="changelog/v3.9.0_variocolor_confirmar.webp" alt="Pestaña Variocolor: capturados y shiny para confirmar / Shiny tab: caught and shiny to confirm" title="Pestaña Variocolor: capturados y shiny para confirmar / Shiny tab: caught and shiny to confirm" width="260"></p>
+
+
+### Español
+- **Nuevo:** el escáner lee la pestaña **Variocolor** de la Pokédex de GO (la de fondo naranja; el nombre cambia según el idioma del juego). Lo que está en color se marca como capturado y shiny; la sombra y el casillero vacío no marcan nada.
+- Se reconoce por el número de cada casillero, igual que la pestaña común: no hace falta revisar nada.
+- Se pueden mezclar capturas de las dos pestañas y de la lista de Pokémon en una misma carga.
+- Ayuda actualizada.
+
+### English
+- **New:** the scanner reads the **Shiny** tab of GO's Pokédex (the orange one; its name depends on the game's language). What's in colour is marked as caught and shiny; silhouettes and empty slots mark nothing.
+- It goes by each slot's number, like the regular tab: nothing to review.
+- Screenshots of both tabs and of the Pokémon list can be mixed in one upload.
+- Help updated.
+
+---
+
+## v3.8.1 — La Pokédex de GO no marca shiny / GO's Pokédex doesn't mark shinies (16/11/2026)
+
+<p><img src="changelog/v3.8.1_ayuda_pokedex.webp" alt="Ayuda: la Pokédex de GO marca capturados, no shiny / Help: GO's Pokédex marks caught, not shiny" title="Ayuda: la Pokédex de GO marca capturados, no shiny / Help: GO's Pokédex marks caught, not shiny" width="260"></p>
+
+
+### Español
+- **Arreglo:** la Pokédex de GO no indica si un Pokémon es shiny, así que el escáner ya no intenta deducirlo de esa pantalla. Desde la Pokédex solo se marcan capturados; los shiny de GO salen de la lista de Pokémon, con las tres estrellitas junto al PC.
+- Ayuda actualizada.
+
+### English
+- **Fix:** GO's Pokédex doesn't show whether a Pokémon is shiny, so the scanner no longer tries to work it out from that screen. From the Pokédex only caught Pokémon are marked; GO shinies come from the Pokémon list, with the three sparkles next to the CP.
+- Help updated.
+
+---
+
+## v3.8.0 — Leer la Pokédex de GO / Read GO's Pokédex (16/11/2026)
+
+<p><img src="changelog/v3.8_pokedex_go.webp" alt="4 capturas de la Pokédex de GO: 52 capturados leídos por número / 4 GO Pokédex screenshots: 52 caught read by number" title="4 capturas de la Pokédex de GO: 52 capturados leídos por número / 4 GO Pokédex screenshots: 52 caught read by number" width="260"></p>
+
+
+### Español
+- **Nuevo: capturas de la Pokédex de Pokémon GO.** El escáner reconoce esa pantalla y **lee el número** de cada casillero, así que no tiene que adivinar por el dibujo:
+  - Pokémon **en color** → capturado (se marca);
+  - **sombra** → visto pero no capturado (no se marca);
+  - casillero con **solo el número** → nunca visto (se saltea).
+- Funciona con las secciones por región (Kanto, Hisui, Paldea…); la cabecera con los contadores y los casilleros tapados por los botones de abajo se ignoran.
+- Estas capturas no generan preguntas: los leídos van directo a "Seguros", y el resumen cuenta cuántos estaban vistos sin capturar.
+- Antes, estas capturas se leían como si fueran cajas y salían muchos recortes que no eran Pokémon (números, contadores, flechas).
+- Ayuda actualizada.
+
+### English
+- **New: Pokémon GO Pokédex screenshots.** The scanner recognises that screen and **reads each slot's number**, so it doesn't have to guess from the picture:
+  - Pokémon **in colour** → caught (marked);
+  - **silhouette** → seen but not caught (not marked);
+  - slot with **just the number** → never seen (skipped).
+- It works with the per-region sections (Kanto, Hisui, Paldea…); the header with the counters and the slots covered by the bottom buttons are ignored.
+- These screenshots raise no questions: what's read goes straight to "Sure", and the summary says how many were seen but not caught.
+- Before, these screenshots were read as if they were boxes, which produced many crops that weren't Pokémon (numbers, counters, arrows).
+- Help updated.
+
+---
+
+## v3.7.1 — "Marcar" seguro en iPhone / Reliable "Mark" on iPhone (16/11/2026)
+
+<p><img src="changelog/v3.7.1_confirmar.webp" alt="Botón grande para marcar / Big Mark button" title="Botón grande para marcar / Big Mark button" width="260"> <img src="changelog/v3.7.1_listo.webp" alt="Confirmación de lo marcado / Confirmation of what was marked" title="Confirmación de lo marcado / Confirmation of what was marked" width="260"></p>
+
+
+### Español
+- **Arreglo:** en algunos iPhone, al terminar el escaneo y tocar **Marcar**, la ventana se cerraba sin marcar nada. Ahora el botón funciona por su cuenta (sin depender de la ventana) y, además, hay un botón grande **"Marcar N Pokémon y M shiny"** arriba de todo en el paso Confirmar.
+- Al marcar, la ventana ya no se cierra sola: muestra **"¡Listo! Se marcaron N capturados y M shiny"**, con "Escanear otras" y "Cerrar".
+- Si el navegador no deja guardar (por ejemplo, en modo privado), lo avisa y sugiere descargar un respaldo.
+- Si algo falla al marcar, aparece el error en pantalla para poder mandarlo, en lugar de cerrarse en silencio.
+- Los botones de abajo ya no quedan fijos sobre el contenido (en iPhone podían recibir mal los toques).
+- La animación de la Ayuda muestra el nuevo final.
+
+### English
+- **Fix:** on some iPhones, after scanning, tapping **Mark** closed the window without marking anything. The button now works on its own (without relying on the window), and there's also a big **"Mark N Pokémon and M shiny"** button at the top of the Confirm step.
+- After marking, the window no longer just closes: it shows **"Done! Marked N caught and M shiny"**, with "Scan others" and "Close".
+- If the browser won't save (for example, in private mode), it says so and suggests downloading a backup.
+- If something fails while marking, the error is shown on screen so it can be reported, instead of closing silently.
+- The bottom buttons no longer stick over the content (on iPhone they could get taps wrong).
+- The Help animation shows the new ending.
+
+---
+
+## v3.7.0 — Animación de ayuda y revisión más completa / Help animation and fuller review (16/11/2026)
+
+<p><img src="changelog/v3.7_ayuda_go_es.gif" alt="Animación de la Ayuda: un Pokémon reconocido y otro elegido con el buscador / Help animation: one Pokémon recognised and one found with the search" width="260"></p>
+
+### Español
+- **Ayuda → Escanear capturas de HOME o GO** tiene una animación de ejemplo con una captura de GO: un Pokémon reconocido solo (Pignite) y otro que hay que buscar (Gallade), de punta a punta. Hay versión en español y en inglés.
+- **Más Pokémon para revisar:** antes, si las tres opciones eran Pokémon que ya tenías, la app no te preguntaba; pero el correcto podía no estar entre ellas, y desde la v3.6 se puede buscar. Ahora solo se saltean los que casi seguro ya tenés.
+- **Shiny de GO en los dudosos:** si un Pokémon que vas a revisar tiene las tres estrellitas de shiny, el botón "¿Es shiny?" ya viene marcado, y el shiny se aplica al Pokémon que elijas (antes se aplicaba a la primera opción de la app, que podía estar mal).
+- Las capturas con uno o dos Pokémon ya no se descartan como "no parece una lista".
+
+### English
+- **Help → Scan HOME or GO screenshots** has an example animation with a GO screenshot: one Pokémon recognised on its own (Pignite) and one you have to search (Gallade), from start to finish. There is a Spanish and an English version.
+- **More Pokémon to review:** before, if all three options were Pokémon you already had, the app didn't ask you; but the right one might not be among them, and since v3.6 you can search. Now only the ones you almost surely already have are skipped.
+- **GO shinies among the doubtful:** if a Pokémon you'll review has the three shiny sparkles, the "Is it shiny?" button comes pressed, and the shiny goes to the Pokémon you pick (before it went to the app's first option, which could be wrong).
+- Screenshots with only one or two Pokémon are no longer discarded as "doesn't look like a list".
+
+---
+
+## v3.6.3 — Ayuda al día / Help up to date (16/11/2026)
+
+<p><img src="changelog/v3.6.3_ayuda_escaner.webp" alt="Ayuda del escáner de capturas / Screenshot scanner help" title="Ayuda del escáner de capturas / Screenshot scanner help" width="260"></p>
+
+
+### Español
+- **Ayuda → Escanear capturas de HOME o GO:** explica las vistas de 3 a 7 columnas, los tres pasos de confirmación (Seguros, Para revisar y Confirmar), los botones "Es otro: buscarlo", "¿Es shiny?" y "Eso no es un Pokémon", que los repetidos entre capturas cuentan una sola vez y que se marca la especie, no la cantidad.
+- **Ayuda → Escanear una partida guardada:** cuenta que arriba aparecen con sprites los nuevos para tu Pokédex y los shiny nuevos, y que las listas largas muestran 15 con "Ver los N".
+- **Ayuda → Marcar muchos a la vez:** aclara que desmarcar borra todo lo de cada Pokémon (shiny, idioma, juego, naturaleza, origen) y también sus formas regionales.
+- Lo mismo en inglés.
+
+### English
+- **Help → Scan HOME or GO screenshots:** explains the 3-to-7-column views, the three confirmation steps (Sure, To review and Confirm), the "Another one: search", "Is it shiny?" and "Not a Pokémon" buttons, that repeats across screenshots count once, and that it marks the species, not the count.
+- **Help → Scan a save file:** says the Pokémon new to your Pokédex and the new shinies come first with sprites, and that long lists show 15 with "See all N".
+- **Help → Marking many at once:** makes clear that unmarking clears everything about each Pokémon (shiny, language, game, nature, origin) and their regional forms too.
+- The same in Spanish.
+
+---
+
 ## v3.6.2 — "Desmarcar todos" desmarca de verdad / "Unmark all" really unmarks (16/11/2026)
 
 <p><img src="changelog/v3.6.2_desmarcar_todos.webp" alt="Desmarcar todos, con su explicación / Unmark all, with its explanation" title="Desmarcar todos, con su explicación / Unmark all, with its explanation" width="520"> <img src="changelog/v3.6.2_todo_en_cero.webp" alt="Después de desmarcar: todo en cero, también los shiny y las formas regionales / After unmarking: everything at zero, shinies and regional forms too" title="Después de desmarcar: todo en cero, también los shiny y las formas regionales / After unmarking: everything at zero, shinies and regional forms too" width="520"></p>
