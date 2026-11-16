@@ -1239,10 +1239,10 @@ let qt; $("q").addEventListener("input",e=>{ clearTimeout(qt); qt=setTimeout(()=
 
 $("bulkBtn").onclick=()=>{
   const list=filtered(); if(!list.length) return toast(tr("No hay Pokémon visibles para marcar.","No visible Pokémon to mark."));
-  modal(`<h3>${tr(`Marcar ${list.length} Pokémon`,`Mark ${list.length} Pokémon`)}</h3><p>${tr("Se aplica a los que ves ahora con los filtros actuales. Los que ya tienen cantidad la conservan.","Applies to the ones you see now with the current filters. Those that already have a count keep it.")}</p>
+  modal(`<h3>${tr(`Marcar ${list.length} Pokémon`,`Mark ${list.length} Pokémon`)}</h3><p>${tr("Se aplica a los que ves ahora con los filtros actuales. Al marcar, los que ya tienen cantidad la conservan. Al desmarcar se borra todo lo de cada uno (shiny, idioma, juego, naturaleza, origen) y también sus formas regionales.","Applies to the ones you see now with the current filters. When marking, those that already have a count keep it. Unmarking clears everything about each one (shiny, language, game, nature, origin) and their regional forms too.")}</p>
     <div class="act"><button class="btn" data-cancel>${tr("Cancelar","Cancel")}</button><button class="btn" id="bUn">${tr("Desmarcar todos","Unmark all")}</button><button class="btn pri" data-ok>${tr("Marcar como capturados","Mark as caught")}</button></div>`,
     ()=>{ list.forEach(p=>{ if(!got(p[0])) S.c[p[0]]=1; }); persist(); renderAll(); toast(tr(`${list.length} marcados como capturados`,`${list.length} marked as caught`)); });
-  $("bUn").onclick=()=>{ list.forEach(p=>delete S.c[p[0]]); persist(); renderAll(); $("modal").hidden=true; toast(tr(`${list.length} desmarcados`,`${list.length} unmarked`)); };
+  $("bUn").onclick=()=>{ list.forEach(p=>{ setCount("c",p[0],0); delete S.o[p[0]]; if(!isForm(p[0])) (FORMS_OF[p[0]]||[]).forEach(f=>{ setCount("c",f[0],0); delete S.o[f[0]]; }); }); persist(); renderAll(); $("modal").hidden=true; toast(tr(`${list.length} desmarcados`,`${list.length} unmarked`)); };
 };
 $("impBtn").onclick=()=>{
   modal(`<h3>${tr("Importar desde tu planilla","Import from your spreadsheet")}</h3><p>${tr("Pegá los números de la Dex Nacional que ya tenés, separados por coma, espacio o salto de línea. Acepta rangos:","Paste the National Dex numbers you already have, separated by commas, spaces or line breaks. Ranges work:")} <code>1-151, 152, 155</code>.</p>
@@ -1323,7 +1323,7 @@ $("expBtn").onclick=async()=>{
 
 /* ---------- TEST: read a Game Boy Color save (Pokémon Gold/Silver/Crystal, international) ---------- */
 const SAVTEST = true;    // save-file scanner: official since v2.0 (still tagged Beta)
-const APP_VERSION = "3.6.1";  const APP_DATE = "16/11/2026";
+const APP_VERSION = "3.6.2";  const APP_DATE = "16/11/2026";
 // Offsets: Bulbapedia, "Save data structure (Generation II)". Species index = National Dex number in Gen II.
 const GEN2 = {
   crystal:{name:"Pokémon Cristal", en:"Pokémon Crystal", ck:[0x2009,0x2B82,0x2D0D], own:0x2A27, seen:0x2A47, party:0x2865, cur:0x2700, curBox:0x2D10},
@@ -2890,6 +2890,15 @@ const _ps=paintStatic; paintStatic=function(){ _ps.apply(this,arguments); paint(
 if(typeof helpHTML==="function"){ const _hh=helpHTML; helpHTML=function(){ return _hh.apply(this,arguments) + (LANG==="en"
   ? `<details><summary>Scan HOME or GO screenshots (beta)</summary><div class="hb"><ul><li>In Pokémon HOME open <b>Pokémon → All Pokémon</b>; in Pokémon GO open your Pokémon list. Take screenshots while you scroll down.</li><li>Tap <b>Scan screenshots (HOME / GO)</b> and choose them all at once (you can mix both games). Each Pokémon is recognised by comparing its picture with each game's own models, on your device, so GO nicknames don't matter.</li><li>You get a list to confirm: the sure ones come ticked, the doubtful ones offer up to three options. Nothing is marked until you tap <b>Mark</b>.</li><li>Shinies: in GO the three sparkles next to the CP are detected and those Pokémon come ticked as shiny; in HOME shinies are only suggested, unticked. GO's other badges (favourite, lucky, shadow, purified, Dynamax, special background, city event) are ignored. Slots covered by the round buttons show up in the next screenshot.</li><li>Pokémon with GO's best-buddy medal are offered as your HomeDex partner (optional).</li><li>In GO, Pokémon with lucky or event backgrounds, or very pale ones, are harder: they usually go to the review list.</li></ul></div></details>`
   : `<details><summary>Escanear capturas de HOME o GO (beta)</summary><div class="hb"><ul><li>En Pokémon HOME abrí <b>Pokémon → Todos los Pokémon</b>; en Pokémon GO, tu lista de Pokémon. Sacá capturas de pantalla mientras bajás.</li><li>Tocá <b>Escanear capturas (HOME / GO)</b> y elegilas todas juntas (podés mezclar los dos juegos). Cada Pokémon se reconoce comparando su dibujo con los modelos de cada juego, en tu dispositivo, así que los apodos de GO no molestan.</li><li>Te aparece una lista para confirmar: los seguros vienen tildados y los dudosos te ofrecen hasta tres opciones. No se marca nada hasta que tocás <b>Marcar</b>.</li><li>Shiny: en GO se detectan las tres estrellitas junto al PC y esos Pokémon vienen tildados como shiny; en HOME solo se sugieren, sin tildar. Las demás marcas de GO (favorito, con suerte, oscuro, purificado, Dinamax, fondo especial, evento de ciudad) se ignoran. Los casilleros tapados por los botones redondos aparecen en la captura siguiente.</li><li>Los Pokémon con la medalla de mejor amigo de GO se ofrecen como compañero de la HomeDex (es opcional).</li><li>En GO cuestan más los que tienen fondo de suerte o de evento y los muy claros: suelen ir a la lista para revisar.</li></ul></div></details>`); }; }
+/* data that only makes sense for a caught Pokémon (shiny, language, game, nature, origin) is dropped when it isn't caught:
+   a shiny means you have it, so a shiny without the Pokémon can only be left over from an old unmark */
+function tidy(){
+  let n=0;
+  for(const k of ["s","l","g","n","o"]) for(const id of Object.keys(S[k]||{})) if(!got(+id)){ delete S[k][id]; n++; }
+  return n;
+}
+if(tidy()) persist();
+{ const _ra=renderAll; renderAll=function(){ if(tidy()) persist(); return _ra.apply(this,arguments); }; }
 window.HomeDexScan = {scanImage, loadRefs, review, cfg:(g,p)=>{ GLOW=g; GO_PASSES=p; }};
 })();
 

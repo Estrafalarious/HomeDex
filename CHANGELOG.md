@@ -11,6 +11,25 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ---
 
+## v3.6.2 — "Desmarcar todos" desmarca de verdad / "Unmark all" really unmarks (16/11/2026)
+
+<p><img src="changelog/v3.6.2_desmarcar_todos.webp" alt="Desmarcar todos, con su explicación / Unmark all, with its explanation" title="Desmarcar todos, con su explicación / Unmark all, with its explanation" width="520"> <img src="changelog/v3.6.2_todo_en_cero.webp" alt="Después de desmarcar: todo en cero, también los shiny y las formas regionales / After unmarking: everything at zero, shinies and regional forms too" title="Después de desmarcar: todo en cero, también los shiny y las formas regionales / After unmarking: everything at zero, shinies and regional forms too" width="520"></p>
+
+
+### Español
+- **Arreglo:** "Marcar los visibles… → Desmarcar todos" sacaba el capturado pero dejaba el shiny, el idioma, el juego, la naturaleza y el origen. Quedaban shiny "sueltos" que no se contaban en ninguna parte, aunque un shiny implica tener el Pokémon. Ahora desmarcar borra todo lo de cada uno, igual que la casilla de la tarjeta.
+- **Arreglo:** "Desmarcar todos" no tocaba las formas regionales, porque no se ven en la lista común. Ahora también desmarca las formas regionales de cada especie desmarcada.
+- Al abrir la app se limpian solos los datos que hubieran quedado sueltos por ese error (shiny, idioma, juego, naturaleza u origen de un Pokémon no capturado).
+- El aviso de "Marcar los visibles…" explica qué hace desmarcar.
+
+### English
+- **Fix:** "Mark visible… → Unmark all" removed the caught mark but left shiny, language, game, nature and origin. That left "loose" shinies that weren't counted anywhere, even though a shiny means you have the Pokémon. Unmarking now clears everything about each one, just like the card's checkbox.
+- **Fix:** "Unmark all" didn't touch regional forms, since they don't show in the normal list. It now also unmarks the regional forms of every species it unmarks.
+- When the app opens, any data left loose by that bug (shiny, language, game, nature or origin of a Pokémon that isn't caught) is cleaned up automatically.
+- The "Mark visible…" dialog explains what unmarking does.
+
+---
+
 ## v3.6.1 — "Eso no es un Pokémon" a la vista / "Not a Pokémon" in sight (16/11/2026)
 
 <p><img src="changelog/v3.6.1_revisar_celular.webp" alt="Paso 2 en un celular chico / Step 2 on a small phone" title="Paso 2 en un celular chico / Step 2 on a small phone" width="260"></p>

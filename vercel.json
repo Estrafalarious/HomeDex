@@ -5,7 +5,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; script-src 'self' 'sha256-rbTaSdDD+Sd+K8IZ66VS79bdI78bN8AwXXyN0/lD5fY=' 'sha256-bxjZ9suRA+o0XUCrivXPJGReiaxvj+EKv9x8sIz1zi0=' 'sha256-kXkZ5eL9ejtw9jD5Eu33A0CgCU2TbMmBx8SBOrYPVaA=' 'sha256-D6wi/uDCEnyr6Ii3f8Fjj3ueMD0teHrQmExESB3BD6s='; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https:; media-src https:; connect-src 'self' https://www.pokepedia.fr; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+          "value": "default-src 'none'; script-src 'self' 'sha256-rbTaSdDD+Sd+K8IZ66VS79bdI78bN8AwXXyN0/lD5fY=' 'sha256-HZKIUMB80AAjAKjAzeXzsSq0qtNUG2DbTi82Jjmts70=' 'sha256-kXkZ5eL9ejtw9jD5Eu33A0CgCU2TbMmBx8SBOrYPVaA=' 'sha256-maaL/eyF7q6nz0naOQaaFYOE2jIJjQru+t3imKpIkYM='; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https:; media-src https:; connect-src 'self' https://www.pokepedia.fr; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
         },
         {
           "key": "X-Content-Type-Options",
