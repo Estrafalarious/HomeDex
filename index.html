@@ -1324,7 +1324,7 @@ $("expBtn").onclick=async()=>{
 
 /* ---------- TEST: read a Game Boy Color save (Pokémon Gold/Silver/Crystal, international) ---------- */
 const SAVTEST = true;    // save-file scanner: official since v2.0 (still tagged Beta)
-const APP_VERSION = "3.9.0";  const APP_DATE = "16/11/2026";
+const APP_VERSION = "3.9.1";  const APP_DATE = "16/11/2026";
 // Offsets: Bulbapedia, "Save data structure (Generation II)". Species index = National Dex number in Gen II.
 const GEN2 = {
   crystal:{name:"Pokémon Cristal", en:"Pokémon Crystal", ck:[0x2009,0x2B82,0x2D0D], own:0x2A27, seen:0x2A47, party:0x2865, cur:0x2700, curBox:0x2D10},
@@ -2584,7 +2584,7 @@ function resampleTo(src,w,h,ow,oh){   // triangle filter, like the reference pic
 }
 // GO's Pokédex: blue = "Pokémon" tab, orange = shiny tab ("Variocolor"/"Shiny"/…, the name changes with the language)
 const DEX_PAL=[
-  {DIG:[38,130,153], BG:[158,225,240], SIL:[101,188,212], shiny:false, bg:(R,G,B)=>B>=G-6 && B-R>55},
+  {DIG:[38,130,153], BG:[158,225,240], SIL:[101,188,212], shiny:false, bg:(R,G,B)=>B>=G-6 && B-R>15},
   {DIG:[226,140,60], BG:[250,232,190], SIL:[234,186,122], shiny:true,  bg:(R,G,B)=>R>235 && G>195 && R-B>25 && B>130}];
 function readDex(FD,W0,H0){ for(const P of DEX_PAL){ const r=readDexP(FD,W0,H0,P); if(r) return r; } return null; }
 function readDexP(FD,W0,H0,P){
@@ -2617,12 +2617,29 @@ function readDexP(FD,W0,H0,P){
     return [100*col/tot, 100*sil/tot]; };
   toks.sort((a,b)=>a.y-b.y); const groups=[];
   for(const t of toks){ const g=groups[groups.length-1]; if(g && t.y-g[0].y<0.13*W0) g.push(t); else groups.push([t]); }
+  // A slot with a Pokémon (colour or silhouette) has its number at the bottom; an empty slot has it in the middle (~0.10W higher).
+  // Rows repeat every ~0.311W, so one slot whose position is certain tells where the "bottom" is for the whole screen.
+  // Best reference: a row with numbers at two heights. Otherwise a slot with a clear silhouette or a big drawing (the top row is skipped: the header can leak into it).
+  // A new region heading ("PALDEA"…) breaks the rhythm, so references only count inside their own block of rows.
+  const PITCH=0.311*W0, EMPTY_UP=0.101*W0;
+  toks.forEach(t=>t.c=content(t.x,t.y));
+  const fits=d=>{ for(let k=1;k<=4;k++) for(const e of [-EMPTY_UP,0,EMPTY_UP]) if(Math.abs(d-(k*PITCH+e))<0.012*W0) return true; return false; };
+  let blk=0; groups.forEach((g,gi)=>{ g.base=Math.max(...g.map(t=>t.y)); if(gi && !fits(g.base-groups[gi-1].base)) blk++; g.blk=blk; });
+  const refsOf=b=>{ const gs=groups.filter(g=>g.blk===b), r=gs.filter(g=>g.some(t=>g.base-t.y>=0.06*W0)).map(g=>g.base);
+    if(!r.length) gs.forEach(g=>{ const top=groups.indexOf(g)===0; for(const t of g) if(t.c[1]>5 && t.c[1]>2*t.c[0] || (!top && t.c[0]>10)) r.push(t.y); });
+    return r; };
+  const REFS=[...new Set(groups.map(g=>g.blk))].map(refsOf);
+  const occupied=(t,g)=>{ const refs=REFS[g.blk];
+    if(!refs.length) return null;
+    const r=refs.reduce((a,v)=>Math.abs(v-t.y)<Math.abs(a-t.y)?v:a), f=(((t.y-r)%PITCH)+PITCH)%PITCH;
+    const dFull=Math.min(f,PITCH-f), dEmpty=Math.abs(f-(PITCH-EMPTY_UP));
+    return dFull<dEmpty; };
   const out=[];
   for(const g of groups){
-    const base=Math.max(...g.map(t=>t.y)), flat=g.every(t=>base-t.y<0.06*W0);
-    g.forEach(t=>t.c=content(t.x,t.y));
-    const allEmpty=flat && g.every(t=>t.c[0]+t.c[1]<3.5);
-    for(const t of g){ const st = (base-t.y>=0.06*W0 || allEmpty) ? "empty" : (t.c[1]>2*t.c[0] && t.c[1]>1 ? "seen" : "caught"); out.push({n:t.n, st}); }
+    const base=Math.max(...g.map(t=>t.y)), flat=g.every(t=>base-t.y<0.06*W0), allEmpty=flat && g.every(t=>t.c[0]+t.c[1]<3.5);
+    for(const t of g){ const oc=occupied(t,g), empty = oc===null ? (base-t.y>=0.06*W0 || allEmpty) : !oc;
+      const st = empty ? "empty" : (t.c[1]>2*t.c[0] && t.c[1]>1 ? "seen" : "caught");
+      out.push({n:t.n, st, c:t.c, y:Math.round(t.y), x:Math.round(t.x)}); }
   }
   return {cells: out, shinyTab:P.shiny};   // orange tab: what's in colour is a caught shiny
 }
@@ -2978,7 +2995,7 @@ function tidy(){
 }
 if(tidy()) persist();
 { const _ra=renderAll; renderAll=function(){ if(tidy()) persist(); return _ra.apply(this,arguments); }; }
-window.HomeDexScan = {scanImage, loadRefs, review, cfg:(g,p)=>{ GLOW=g; GO_PASSES=p; }};
+window.HomeDexScan = {scanImage, loadRefs, review, readDex, cfg:(g,p)=>{ GLOW=g; GO_PASSES=p; }};
 })();
 
 </script>

@@ -11,6 +11,23 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ---
 
+## v3.9.1 — Pokédex de GO: casilleros vacíos / GO's Pokédex: empty slots (16/11/2026)
+
+<p><img src="changelog/v3.9.1_pokedex_vacios.webp" alt="7 capturas de la Pokédex, 0 para revisar / 7 Pokédex screenshots, 0 to review" title="7 capturas de la Pokédex, 0 para revisar / 7 Pokédex screenshots, 0 to review" width="260"></p>
+
+
+### Español
+- **Arreglo:** en la Pokédex de GO, filas enteras de casilleros vacíos (solo el número) se tomaban como capturados. Ahora la app se fija en la altura del número dentro del casillero: abajo si hay un Pokémon dibujado, en el medio si está vacío.
+- **Arreglo:** se reconocen mejor los números de la primera fila y los de abajo de todo, y las capturas de otros celulares.
+- Probado con 7 capturas de la Pokédex (azul y Variocolor): todas correctas.
+
+### English
+- **Fix:** in GO's Pokédex, whole rows of empty slots (number only) were taken as caught. The app now looks at how high the number sits in the slot: at the bottom when there's a Pokémon drawn, in the middle when it's empty.
+- **Fix:** numbers in the top and bottom rows, and screenshots from other phones, are read better.
+- Tested with 7 Pokédex screenshots (regular and Shiny tab): all correct.
+
+---
+
 ## v3.9.0 — Shiny desde la Pokédex de GO / Shinies from GO's Pokédex (16/11/2026)
 
 <p><img src="changelog/v3.9.0_variocolor_confirmar.webp" alt="Pestaña Variocolor: capturados y shiny para confirmar / Shiny tab: caught and shiny to confirm" title="Pestaña Variocolor: capturados y shiny para confirmar / Shiny tab: caught and shiny to confirm" width="260"></p>
