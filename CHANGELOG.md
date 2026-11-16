@@ -10,6 +10,112 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ---
 
+## v3.5.0 — Confirmación en tres pasos y sprites / Three-step confirmation and sprites (16/11/2026)
+
+### Español
+- **El escáner de capturas confirma en tres pasos:**
+  1. **Seguros:** grilla con sprite y nombre de los Pokémon nuevos reconocidos con seguridad. Se ven los primeros 15 y un botón "Ver los N" despliega el resto. Vienen tildados; tocás uno para quitarlo.
+  2. **Para revisar:** los dudosos de a uno, con el recorte grande de tu captura y hasta tres opciones con sprite, más "Ninguno de estos". Al elegir pasa solo al siguiente; un contador muestra cuántos faltan.
+  3. **Confirmar:** resumen con los sprites de todo lo que se va a marcar, los shiny, el compañero (si hay medalla de mejor amigo de GO) y el botón Marcar.
+- Los pasos que no hacen falta se saltean (por ejemplo, si no hay dudosos). Con "Atrás" se puede volver y cambiar cualquier elección.
+- **Escanear partida** muestra sprites: arriba aparecen los nuevos para tu Pokédex y los shiny nuevos, y las listas de especies de cada partida también van con sprite (15 visibles y "Ver los N").
+- Los sprites son los mismos de la Pokédex, así que no se descarga nada nuevo.
+
+### English
+- **The screenshot scanner confirms in three steps:**
+  1. **Sure:** a grid with sprite and name of the new Pokémon recognised for sure. The first 15 are shown and a "See all N" button unfolds the rest. They come ticked; tap one to leave it out.
+  2. **To review:** the doubtful ones one at a time, with a large crop of your screenshot and up to three options with sprites, plus "None of these". Choosing moves on to the next one; a counter shows how many are left.
+  3. **Confirm:** a summary with the sprites of everything that will be marked, the shinies, the partner (if there is a GO best-buddy medal) and the Mark button.
+- Steps that aren't needed are skipped (for example, when nothing is doubtful). "Back" lets you return and change any choice.
+- **Scan save file** shows sprites: the new species for your Pokédex and the new shinies come first, and each save's species lists have sprites too (15 shown and "See all N").
+- The sprites are the Pokédex's own, so nothing new is downloaded.
+
+---
+
+## v3.4.0 — Compañero desde GO y más marcas / Partner from GO and more badges (16/11/2026)
+
+### Español
+- **Nuevo: compañero desde GO.** Si una captura de GO tiene Pokémon con la medalla de mejor amigo, la pantalla de confirmación ofrece elegir uno como compañero de la HomeDex. Es opcional: por defecto queda "No cambiar".
+- Los shiny de GO también se detectan cuando el reconocimiento está bastante seguro pero no del todo (por ejemplo, un Charizard shiny con gorra de evento).
+- Se ignora también el globo celeste de los Pokémon de eventos de ciudad.
+- **Arreglo:** el halo celeste que GO dibuja detrás de algunos Pokémon (por ejemplo, Meltan) se confundía con el Pokémon. Ahora se descuenta.
+- GO se lee tres veces (normal, sensible y muy sensible) y se queda con la mejor lectura, lo que ayuda con los Pokémon claros.
+- En las pruebas con 9 capturas reales de GO (shiny, oscuros, purificados, Dinamax, Gigamax, con suerte, con fondo y de eventos) reconoció bien 87 de 88 Pokémon, y todos los que marcó como seguros eran correctos. Detectó todos los shiny y el mejor amigo. Las capturas de HOME siguen igual (179 de 184).
+
+### English
+- **New: partner from GO.** If a GO screenshot has Pokémon with the best-buddy medal, the confirmation screen offers to pick one as your HomeDex partner. It's optional: "Don't change" is selected by default.
+- GO shinies are also detected when recognition is fairly but not fully sure (for example, a shiny Charizard with an event cap).
+- The light-blue globe of city-event Pokémon is ignored too.
+- **Fix:** the light-cyan halo GO draws behind some Pokémon (for example, Meltan) was mistaken for part of the Pokémon. It is now left out.
+- GO is read three times (normal, sensitive and very sensitive) and the best reading is kept, which helps with pale Pokémon.
+- In tests with 9 real GO screenshots (shinies, shadow, purified, Dynamax, Gigantamax, lucky, special backgrounds and event Pokémon) it recognised 87 of 88 Pokémon correctly, and every one it marked as sure was right. It detected every shiny and the best buddy. HOME screenshots work as before (179 of 184).
+
+---
+
+## v3.3.0 — Shiny y marcas de Pokémon GO / Pokémon GO shinies and badges (16/11/2026)
+
+### Español
+- **Shiny en GO:** el escáner detecta las tres estrellitas que GO pone junto al PC de los Pokémon shiny, y esos Pokémon vienen tildados para marcarse como shiny (podés destildarlos antes de confirmar).
+- **Arreglo:** la versión anterior tomaba por shiny el ícono celeste de los Pokémon purificados. Ahora ese ícono se ignora.
+- Se ignoran todas las demás marcas de GO, que no cambian la Pokédex: estrella de favorito, fondo dorado de Pokémon con suerte, llama violeta de Pokémon oscuro, ícono de purificado, X de Dinamax o Gigamax y flores de fondo especial.
+- Mejor con Pokémon con suerte: los círculos dorados del fondo ya no se mezclan con el dibujo.
+- Lee también recortes de la lista de GO con una sola fila y la fila de arriba aunque esté cortada.
+- Los botones redondos de abajo solo se tienen en cuenta en la parte de abajo de la pantalla, así que Pokémon de color turquesa (como Venusaur) ya no se toman por tapados.
+- En las pruebas con capturas reales de GO reconoció bien 35 de 36 Pokémon, incluido el shiny; el que falló (un Swablu con suerte, blanco sobre blanco) quedó para revisar. Las capturas de HOME siguen igual (179 de 184).
+
+### English
+- **GO shinies:** the scanner detects the three sparkles GO shows next to the CP of shiny Pokémon, and those come ticked to be marked as shiny (you can untick them before confirming).
+- **Fix:** the previous version took the light-blue purified icon for shiny. That icon is now ignored.
+- All other GO badges, which don't change the Pokédex, are ignored: favourite star, lucky golden background, shadow purple flame, purified icon, Dynamax or Gigantamax X and special-background flowers.
+- Better with lucky Pokémon: the golden circles behind them no longer get mixed into the picture.
+- It also reads crops of the GO list with a single row, and the top row even if it is cut.
+- The round buttons at the bottom are only considered at the bottom of the screen, so teal Pokémon (like Venusaur) are no longer taken as covered.
+- In tests with real GO screenshots it recognised 35 of 36 Pokémon correctly, the shiny included; the one it missed (a lucky Swablu, white on white) went to the review list. HOME screenshots work as before (179 of 184).
+
+---
+
+## v3.2.1 — HOME con 3 a 7 columnas / HOME with 3 to 7 columns (16/11/2026)
+
+### Español
+- El escáner reconoce las capturas de HOME con cualquier cantidad de columnas (de 3 a 7), también cuando HOME muestra el nombre o el número debajo de cada Pokémon.
+- Ignora la estrella de favorito de HOME y las etiquetas de nombre y número, que antes podían confundir el reconocimiento.
+- Mejor con Pokémon muy claros (por ejemplo, Nidoran♀ o las formas de Alola de hielo): se prueba una segunda lectura más sensible y se queda con la mejor.
+- También lee la última fila aunque la captura la corte un poco.
+- Las capturas de HOME ya no se confunden con capturas de GO.
+- En las pruebas con capturas reales de 3, 4, 5, 6 y 7 columnas reconoció bien 162 de 165 Pokémon, y todos los que marcó como seguros eran correctos.
+
+### English
+- The scanner reads HOME screenshots with any number of columns (3 to 7), also when HOME shows the name or number under each Pokémon.
+- It ignores HOME's favourite star and the name and number labels, which could confuse recognition before.
+- Better with very pale Pokémon (for example, Nidoran♀ or the icy Alolan forms): a second, more sensitive reading is tried and the better one is kept.
+- It also reads the last row even if the screenshot cuts it a little.
+- HOME screenshots are no longer mistaken for GO screenshots.
+- In tests with real screenshots of 3, 4, 5, 6 and 7 columns it recognised 162 of 165 Pokémon correctly, and every one it marked as sure was right.
+
+---
+
+## v3.2.0 — Escanear capturas de Pokémon GO / Scan Pokémon GO screenshots (16/11/2026)
+
+### Español
+- **Nuevo (beta): el escáner de capturas ahora también lee Pokémon GO.** El botón pasa a llamarse *Escanear capturas (HOME / GO)* y acepta capturas de los dos juegos mezcladas.
+- En GO se reconoce el dibujo de cada Pokémon comparándolo con los modelos del propio GO, así que los apodos no molestan. Incluye formas regionales y disfraces de eventos (se marca la especie).
+- La app distingue sola si la captura es de HOME o de GO: en GO usa la barrita verde de debajo del nombre para ubicar cada Pokémon.
+- Detecta el ícono de destello que GO pone junto a algunos Pokémon y ofrece marcarlos como shiny, sin tildar.
+- Los íconos de compañero, estrellas e insignias que GO dibuja alrededor del Pokémon se ignoran.
+- Las imágenes de referencia de GO (alrededor de 1 MB) se descargan solo la primera vez que escaneás una captura de GO.
+- Cuestan más los Pokémon con fondo de suerte o de evento, los muy claros y las capturas de baja resolución (por ejemplo, reenviadas por chat): suelen ir a la lista para revisar.
+
+### English
+- **New (beta): the screenshot scanner now reads Pokémon GO too.** The button is now *Scan screenshots (HOME / GO)* and takes screenshots of both games mixed together.
+- In GO each Pokémon's picture is compared with GO's own models, so nicknames don't matter. Regional forms and event costumes are included (the species is marked).
+- The app tells by itself whether a screenshot is from HOME or GO: in GO it uses the small green bar under the name to find each Pokémon.
+- It detects the sparkle icon GO shows next to some Pokémon and offers to mark them as shiny, unticked.
+- The buddy, star and badge icons GO draws around the Pokémon are ignored.
+- GO's reference pictures (about 1 MB) download only the first time you scan a GO screenshot.
+- Harder cases: Pokémon with lucky or event backgrounds, very pale ones, and low-resolution screenshots (for example, forwarded through a chat app). They usually go to the review list.
+
+---
+
 ## v3.1.0 — Escanear capturas de HOME / Scan HOME screenshots (16/11/2026)
 
 ### Español
