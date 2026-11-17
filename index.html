@@ -516,6 +516,10 @@ select.sel{padding:10px 10px;border:1px solid var(--line);border-radius:10px;bac
 }
 .hs-apply{width:100%;min-height:48px;font-size:16px;margin:4px 0 6px}
 .hs-done{font-size:16px}.hs-err{white-space:pre-wrap;font-size:11px;background:var(--screen);padding:8px;border-radius:8px;max-height:200px;overflow:auto}
+/* filter panel: a rounded panel with a little margin around the controls, like the other panels
+   (on phones its straight edge stood flush against the page's coloured border) */
+.tools{border-radius:14px;margin-inline:-8px;padding-inline:8px}
+.tools::before{border-radius:inherit;border:1px solid var(--line)}
 </style>
 
 <header class="case">
@@ -1324,7 +1328,7 @@ $("expBtn").onclick=async()=>{
 
 /* ---------- TEST: read a Game Boy Color save (Pokémon Gold/Silver/Crystal, international) ---------- */
 const SAVTEST = true;    // save-file scanner: official since v2.0 (still tagged Beta)
-const APP_VERSION = "3.9.1";  const APP_DATE = "16/11/2026";
+const APP_VERSION = "3.9.2";  const APP_DATE = "16/11/2026";
 // Offsets: Bulbapedia, "Save data structure (Generation II)". Species index = National Dex number in Gen II.
 const GEN2 = {
   crystal:{name:"Pokémon Cristal", en:"Pokémon Crystal", ck:[0x2009,0x2B82,0x2D0D], own:0x2A27, seen:0x2A47, party:0x2865, cur:0x2700, curBox:0x2D10},
@@ -2608,10 +2612,10 @@ function readDexP(FD,W0,H0,P){
       // GO's Pokédex background is sky blue (blue ≥ green), HOME's is mint green: sample just below the number
       let R=0,G=0,B=0,k=0; for(let yy=Math.round(cy+0.022*W0);yy<Math.round(cy+0.03*W0);yy++) for(let xx=Math.round((x0+x1)/2-0.02*W0);xx<Math.round((x0+x1)/2+0.02*W0);xx++){ if(yy>=H0) continue; const p=(yy*W0+xx)*4; R+=FD[p]; G+=FD[p+1]; B+=FD[p+2]; k++; }
       const sky = k && P.bg(R/k,G/k,B/k);
-      if(sky && worst<=30 && margin>=4 && n>=1 && n<=1025 && cy<0.83*H0) toks.push({x:(x0+x1)/2, y:cy, n});
+      if(sky && worst<=30 && margin>=4 && n>=1 && n<=1025 && cy<0.83*H0) toks.push({x:(x0+x1)/2, y:cy, n, w:worst});
     }
   }
-  if(toks.length<3) return null;
+  if(toks.length<3 && !(toks.length && toks.every(t=>t.w<=20))) return null;   // a screen with only one or two slots (e.g. the "unidentified" section) still counts if the digits are crisp
   const content=(x,y)=>{ let col=0,sil=0,tot=0; const y0=Math.max(0,Math.round(y-0.24*W0)), y1=Math.round(y-0.035*W0), x0=Math.max(0,Math.round(x-0.11*W0)), x1=Math.min(W0,Math.round(x+0.11*W0));
     for(let yy=y0;yy<y1;yy+=2) for(let xx=x0;xx<x1;xx+=2){ const p=(yy*W0+xx)*4; tot++; if(dd(p,BG)>40 && dd(p,DIG)>50){ if(dd(p,SIL)<35) sil++; else col++; } }
     return [100*col/tot, 100*sil/tot]; };

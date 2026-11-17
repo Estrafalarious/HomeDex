@@ -11,6 +11,21 @@ Cada versión tiene su texto en español y en inglés. / Each version has its no
 
 ---
 
+## v3.9.2 — Panel de filtros redondeado / Rounded filter panel (16/11/2026)
+
+<p><img src="changelog/v3.9.2_filtros_antes_despues.webp" alt="Filtros en el celular: antes y después / Filters on a phone: before and after" title="Filtros en el celular: antes y después / Filters on a phone: before and after" width="260"></p>
+
+
+### Español
+- **Diseño:** en el celular, el panel de filtros tenía el borde recto y pegado al color del fondo. Ahora tiene las esquinas redondeadas y un pequeño margen, como el resto de los paneles.
+- **Arreglo:** una pantalla de la Pokédex de GO con solo uno o dos casilleros (por ejemplo, la sección "Sin identificar") se lee igual por su número, en vez de pasar a revisión.
+
+### English
+- **Design:** on phones, the filter panel had a straight edge flush against the background colour. It now has rounded corners and a small margin, like the other panels.
+- **Fix:** a GO Pokédex screen with only one or two slots (for example, the "Unidentified" section) is still read by its number instead of going to review.
+
+---
+
 ## v3.9.1 — Pokédex de GO: casilleros vacíos / GO's Pokédex: empty slots (16/11/2026)
 
 <p><img src="changelog/v3.9.1_pokedex_vacios.webp" alt="7 capturas de la Pokédex, 0 para revisar / 7 Pokédex screenshots, 0 to review" title="7 capturas de la Pokédex, 0 para revisar / 7 Pokédex screenshots, 0 to review" width="260"></p>
